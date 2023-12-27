@@ -1,0 +1,98 @@
+---
+interface Props {
+  title: string;
+  iconSrc: string;
+  text: string;
+}
+
+const { title, iconSrc, text } = Astro.props;
+---
+
+<article class="summary__items">
+  <div class="icon__summary__item">
+    <img src={iconSrc} alt="Icon of summary item">
+  </div>
+
+  <div class="main__summary__item">
+    <span class="title__summary__item">{title}</span>
+    <p>
+      {text}
+    </p>
+  </div>
+</article>
+
+<style>
+  .summary__items {
+    display: flex;
+    width: 427px;
+    height: 150px;
+    padding: 8px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .icon__summary__item {
+    display: flex;
+    width: 65px;
+    height: 65px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 99999px;
+    background: #000;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  .main__summary__item {
+    display: flex;
+    height: 116px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .title__summary__item {
+    color: #000;
+    font-family: Nunito;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+    display: flex;
+    height: 116px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 0.5px solid #000;
+    width: 75%;
+  }
+  .main__summary__item p {
+    margin-top: 16px;
+    width: 329px;
+    height: 65px;
+    flex-shrink: 0;
+    font-family: Nunito;
+  }
+  .icon__summary__item img {
+    height: 75%;
+    widows: 75%;
+  }
+  @media screen and (max-width: 450px) {
+    .summary__items {
+        width: 320px;
+        height: 120px;
+    }
+    .main__summary__item {
+      padding: 8px;
+    }
+    .main__summary__item p {
+      margin-top: 8px;
+      font-size: 12px;
+      width: 236px;
+    }
+    .title__summary__item {
+      font-size: 16px;
+    }
+    .icon__summary__item {
+        width: 50px;
+height: 50px;
+    }
+  }
+</style>

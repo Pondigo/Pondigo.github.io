@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import About from "../components/About.astro";
+import Summary from "../components/Summary/index.astro"
+import ContactModal from "../components/ContactModal.astro";
+---
+
+<Layout title="Lenora's page">
+  <Header />
+  <main>
+    <ContactModal />
+    <About />
+    <Summary/>
+    
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin-top: 45px;
+  }
+
+</style>

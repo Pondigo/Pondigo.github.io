@@ -1,0 +1,91 @@
+<header>
+  <span class="header__email" onclick="window.open('mailto:test@example.com');">
+    <svg
+      width="20"
+      height="13"
+      viewBox="0 0 20 13"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M18.1252 0H1.8748C0.839385 0 0 0.727513 0 1.625V11.375C0 12.2725 0.839385 13 1.8748 13H18.1252C19.1606 13 20 12.2725 20 11.375V1.625C20 0.727513 19.1606 0 18.1252 0ZM19.3751 11.1342L13.4635 6.01033L19.3751 2.74528V11.1342ZM1.8748 0.541667H18.1252C18.8144 0.541667 19.3751 1.02762 19.3751 1.625V2.1034L10.7711 6.85571C10.3055 7.11281 9.71073 7.10488 9.25575 6.83667L0.624933 1.75216V1.625C0.624933 1.02762 1.18565 0.541667 1.8748 0.541667ZM0.624933 2.40641L6.61982 5.93805L0.624933 11.1342V2.40641ZM18.1252 12.4583H1.8748C1.36004 12.4583 0.917432 12.1869 0.72614 11.8008L7.13792 6.24328L8.90485 7.2842C9.24416 7.48415 9.63659 7.58439 10.0296 7.58439C10.4031 7.58439 10.7772 7.49393 11.1065 7.31223L12.932 6.30392L19.2739 11.8008C19.0826 12.1869 18.64 12.4583 18.1252 12.4583Z"
+        fill="black"></path>
+    </svg>
+
+    <p>lenora.pondigosa@udlap.mx</p>
+  </span>
+  <span class="header__links">
+    <a href="#about">About</a>
+    <a href="https://github.com/Pondigo">Portfolio</a>
+  </span>
+</header>
+
+<style>
+  * {
+    font-family: Nunito;
+  }
+
+  header {
+    background: #ffffff40;
+    min-height: 36px;
+    display: flex;
+    padding: 8px;
+    width: 100vw;
+    justify-content: space-between;
+    gap: 10px;
+    flex-shrink: 0;
+
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+  }
+
+  .header__email {
+    display: flex;
+    padding: 13px 0px;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .header__email:hover {
+    cursor:pointer;
+  }
+
+  .header__email p {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  @media screen and (max-width: 500px) {
+    .header__email p {
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (max-width: 445px) {
+    .header__email p {
+      display: none;
+    }
+  }
+
+  .header__links {
+    display: inline-flex;
+    padding: 3.5px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 17px;
+  }
+
+  .header__links a {
+    color: #000;
+    font-family: Nunito;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none
+  }
+</style>

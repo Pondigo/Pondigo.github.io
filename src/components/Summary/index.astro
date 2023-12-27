@@ -1,0 +1,23 @@
+---
+import Card from "./Card.astro"
+---
+
+<section class="summary__main">
+    <Card title="Robotics engineer" iconSrc="/roboticon.svg" text="Experience in kinematics, dynamics, ROS, drones. Worked on universal robotic arms, Solidworks, Catia, RoboDK."/>
+    <Card title="Fullstack engineer" iconSrc="/webicon.svg" text="Proficient in Typescript, JavaScript, FastAPI, React.js, Next.js, Azure, NGINX, Docker, Tailwind, Less.js, CSS, HTML."/>
+    <Card title="Embedded engineer" iconSrc="/chipicon.svg" text="Skilled in PLCs, PICs, PLAs, FPGAs, boolean algebra, IoT. Worked with C, assembly, VHDL."/>
+
+</section>
+
+<style>
+    .summary__main {
+        display: flex;
+        width: 100vw;
+        padding: 24px 16px;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+</style>
