@@ -95,4 +95,18 @@ const { title, iconSrc, text } = Astro.props;
 height: 50px;
     }
   }
+
+  :global(body.dark) .title__summary__item {
+    color: #e0e0e8;
+    border-bottom-color: #444;
+  }
+  :global(body.dark) .main__summary__item p {
+    color: #aaa;
+  }
+  :global(body.dark) .icon__summary__item {
+    background: #fff;
+  }
+  :global(body.dark) .icon__summary__item img {
+    filter: invert(1);
+  }
 </style>
