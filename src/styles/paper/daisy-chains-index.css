@@ -25,3 +25,12 @@ details[open] summary::before {
 /* ── Dark Mode ── */
 body.dark details summary { color: #f0f0f0; }
 body.dark details summary::before { color: #666; }
+body.dark .takeaway { background: #16161b; }
+body.dark .takeaway h2 { color: #f0f0f0; }
+body.dark .takeaway h2 span { color: #666; }
+body.dark .takeaway .ta-sub { color: #666; }
+body.dark .rfc-block { background: rgba(255,255,255,0.03) !important; border-color: #444 !important; }
+body.dark .rfc-block .rfc-title { color: #f0f0f0 !important; }
+body.dark .rfc-block .rfc-desc { color: #888 !important; }
+body.dark .rfc-block .rfc-links { color: #aaa !important; }
+body.dark .rfc-block .rfc-links a { color: #ddd !important; border-bottom-color: #555 !important; }
