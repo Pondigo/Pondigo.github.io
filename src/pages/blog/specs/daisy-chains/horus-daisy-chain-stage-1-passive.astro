@@ -1,26 +1,26 @@
 ---
-import PaperLayout from '../../layouts/PaperLayout.astro';
-import SidebarGroup from '../../components/paper/SidebarGroup.astro';
-import SidebarLink from '../../components/paper/SidebarLink.astro';
-import Hero from '../../components/paper/Hero.astro';
-import Footer from '../../components/paper/Footer.astro';
-import '../../styles/paper/global.css';
-import '../../styles/paper/article.css';
+import PaperLayout from '../../../../layouts/PaperLayout.astro';
+import SidebarGroup from '../../../../components/paper/SidebarGroup.astro';
+import SidebarLink from '../../../../components/paper/SidebarLink.astro';
+import Hero from '../../../../components/paper/Hero.astro';
+import Footer from '../../../../components/paper/Footer.astro';
+import '../../../../styles/paper/global.css';
+import '../../../../styles/paper/article.css';
 ---
 
 <PaperLayout title="Horus Daisy Chain Stage 1: Passive">
   <Fragment slot="sidebar-content">
     <SidebarGroup title="Daisy Chains Specs">
-      <SidebarLink href="/daisy-chains/" icon="∞" label="Main Spec" meta="Daisy Chains" />
-      <SidebarLink href="/daisy-chains/daisy-chains-landscape/" icon="▬" label="Landscape" meta="System Overview" />
-      <SidebarLink href="/daisy-chains/daisy-chains-agentic-testing/" icon="◈" label="Agentic Testing" meta="Agent Framework" />
-      <SidebarLink href="/daisy-chains/daisy-chains-research-companion/" icon="§" label="Research Companion" meta="References & Reading" />
+      <SidebarLink href="/blog/specs/daisy-chains/" icon="∞" label="Main Spec" meta="Daisy Chains" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chains-landscape/" icon="▬" label="Landscape" meta="System Overview" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chains-agentic-testing/" icon="◈" label="Agentic Testing" meta="Agent Framework" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chains-research-companion/" icon="§" label="Research Companion" meta="References & Reading" />
     </SidebarGroup>
     <SidebarGroup title="Implementation Specs">
-      <SidebarLink href="/daisy-chains/daisy-chain-matcher-engine-spec/" icon="⚙" label="Matcher Engine" meta="DCME" />
-      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-1-passive/" icon="1" label="Stage 1: Passive" meta="Horus Implementation (This Page)" />
-      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-2-reactive/" icon="2" label="Stage 2: Reactive" meta="Horus Implementation" />
-      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-3-active/" icon="3" label="Stage 3: Active" meta="Horus Implementation" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chain-matcher-engine-spec/" icon="⚙" label="Matcher Engine" meta="DCME" />
+      <SidebarLink href="/blog/specs/daisy-chains/horus-daisy-chain-stage-1-passive/" icon="1" label="Stage 1: Passive" meta="Horus Implementation (This Page)" />
+      <SidebarLink href="/blog/specs/daisy-chains/horus-daisy-chain-stage-2-reactive/" icon="2" label="Stage 2: Reactive" meta="Horus Implementation" />
+      <SidebarLink href="/blog/specs/daisy-chains/horus-daisy-chain-stage-3-active/" icon="3" label="Stage 3: Active" meta="Horus Implementation" />
     </SidebarGroup>
   </Fragment>
 
@@ -145,7 +145,7 @@ import '../../styles/paper/article.css';
 
       <p>Each link in a chain defines a signal using the <strong>signal + matcher</strong> pattern. The <code>match</code> block is generic key-value equality. No expression parser, no DSL.</p>
 
-      <p>The matching algorithm, core types, chain instance tracking, and alert classification are defined in the <a href="/daisy-chains/daisy-chain-matcher-engine-spec/">daisy chain matcher engine spec</a>. The consumer (e.g. Horus) implements the engine's ports (<code>SignalSource</code>, <code>AlertSink</code>, <code>ChainStore</code>, <code>Injector</code>) with its own adapters.</p>
+      <p>The matching algorithm, core types, chain instance tracking, and alert classification are defined in the <a href="/blog/specs/daisy-chains/daisy-chain-matcher-engine-spec/">daisy chain matcher engine spec</a>. The consumer (e.g. Horus) implements the engine's ports (<code>SignalSource</code>, <code>AlertSink</code>, <code>ChainStore</code>, <code>Injector</code>) with its own adapters.</p>
 
       <h3>Signal direction</h3>
 
@@ -253,9 +253,9 @@ import '../../styles/paper/article.css';
   </div>
 
   <div class="stage-nav">
-    <a href="/daisy-chains/daisy-chain-matcher-engine-spec/"><span style="font-size:1.1rem;">←</span> Matcher Engine</a>
+    <a href="/blog/specs/daisy-chains/daisy-chain-matcher-engine-spec/"><span style="font-size:1.1rem;">←</span> Matcher Engine</a>
     <div class="stage-nav-label">Implementation Specs</div>
-    <a href="/daisy-chains/horus-daisy-chain-stage-2-reactive/">Next: Stage 2 — Reactive <span style="font-size:1.1rem;">→</span></a>
+    <a href="/blog/specs/daisy-chains/horus-daisy-chain-stage-2-reactive/">Next: Stage 2 — Reactive <span style="font-size:1.1rem;">→</span></a>
   </div>
 
   <Footer>

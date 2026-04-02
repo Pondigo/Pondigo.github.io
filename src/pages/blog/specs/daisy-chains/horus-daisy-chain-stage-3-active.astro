@@ -1,26 +1,26 @@
 ---
-import PaperLayout from '../../layouts/PaperLayout.astro';
-import SidebarGroup from '../../components/paper/SidebarGroup.astro';
-import SidebarLink from '../../components/paper/SidebarLink.astro';
-import Hero from '../../components/paper/Hero.astro';
-import Footer from '../../components/paper/Footer.astro';
-import '../../styles/paper/global.css';
-import '../../styles/paper/article.css';
+import PaperLayout from '../../../../layouts/PaperLayout.astro';
+import SidebarGroup from '../../../../components/paper/SidebarGroup.astro';
+import SidebarLink from '../../../../components/paper/SidebarLink.astro';
+import Hero from '../../../../components/paper/Hero.astro';
+import Footer from '../../../../components/paper/Footer.astro';
+import '../../../../styles/paper/global.css';
+import '../../../../styles/paper/article.css';
 ---
 
 <PaperLayout title="Stage 3: Active - Horus Daisy Chain">
   <Fragment slot="sidebar-content">
     <SidebarGroup title="Daisy Chains Specs">
-      <SidebarLink href="/daisy-chains/" icon="∞" label="Main Spec" meta="Daisy Chains" />
-      <SidebarLink href="/daisy-chains/daisy-chains-landscape/" icon="▬" label="Landscape" meta="System Overview" />
-      <SidebarLink href="/daisy-chains/daisy-chains-agentic-testing/" icon="◈" label="Agentic Testing" meta="Agent Framework" />
-      <SidebarLink href="/daisy-chains/daisy-chains-research-companion/" icon="§" label="Research Companion" meta="References & Reading" />
+      <SidebarLink href="/blog/specs/daisy-chains/" icon="∞" label="Main Spec" meta="Daisy Chains" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chains-landscape/" icon="▬" label="Landscape" meta="System Overview" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chains-agentic-testing/" icon="◈" label="Agentic Testing" meta="Agent Framework" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chains-research-companion/" icon="§" label="Research Companion" meta="References & Reading" />
     </SidebarGroup>
     <SidebarGroup title="Implementation Specs">
-      <SidebarLink href="/daisy-chains/daisy-chain-matcher-engine-spec/" icon="⚙" label="Matcher Engine" meta="DCME" />
-      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-1-passive/" icon="1" label="Stage 1: Passive" meta="Horus Implementation" />
-      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-2-reactive/" icon="2" label="Stage 2: Reactive" meta="Horus Implementation" />
-      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-3-active/" icon="3" label="Stage 3: Active" meta="Horus Implementation (This Page)" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chain-matcher-engine-spec/" icon="⚙" label="Matcher Engine" meta="DCME" />
+      <SidebarLink href="/blog/specs/daisy-chains/horus-daisy-chain-stage-1-passive/" icon="1" label="Stage 1: Passive" meta="Horus Implementation" />
+      <SidebarLink href="/blog/specs/daisy-chains/horus-daisy-chain-stage-2-reactive/" icon="2" label="Stage 2: Reactive" meta="Horus Implementation" />
+      <SidebarLink href="/blog/specs/daisy-chains/horus-daisy-chain-stage-3-active/" icon="3" label="Stage 3: Active" meta="Horus Implementation (This Page)" />
     </SidebarGroup>
   </Fragment>
 
@@ -34,7 +34,7 @@ import '../../styles/paper/article.css';
   <div class="container">
     <div class="card article">
       <h2>Origin</h2>
-      <p>See <a href="/daisy-chains/horus-daisy-chain-stage-1-passive/#origin">stage 1 — passive</a> for the full hardware-to-DDD mapping. Stage 3 corresponds to <strong>point 8: progressive test extraction</strong> — the arc from functional test (Playwright E2E) → boundary scan vectors (direct injection) → ATPG (auto-generated specs from observed production traffic).</p>
+      <p>See <a href="/blog/specs/daisy-chains/horus-daisy-chain-stage-1-passive/#origin">stage 1 — passive</a> for the full hardware-to-DDD mapping. Stage 3 corresponds to <strong>point 8: progressive test extraction</strong> — the arc from functional test (Playwright E2E) → boundary scan vectors (direct injection) → ATPG (auto-generated specs from observed production traffic).</p>
 
       <hr>
 
@@ -315,9 +315,9 @@ generated spec:
   </div>
 
   <div class="stage-nav">
-    <a href="/daisy-chains/horus-daisy-chain-stage-2-reactive/"><span style="font-size:1.1rem;">←</span> Stage 2 — Reactive</a>
+    <a href="/blog/specs/daisy-chains/horus-daisy-chain-stage-2-reactive/"><span style="font-size:1.1rem;">←</span> Stage 2 — Reactive</a>
     <div class="stage-nav-label">Implementation Specs</div>
-    <a href="/daisy-chains/daisy-chain-matcher-engine-spec/"><span style="font-size:1.1rem;">↺</span> Matcher Engine</a>
+    <a href="/blog/specs/daisy-chains/daisy-chain-matcher-engine-spec/"><span style="font-size:1.1rem;">↺</span> Matcher Engine</a>
   </div>
 
   <Footer>

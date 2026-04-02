@@ -1,13 +1,13 @@
 ---
-import PaperLayout from '../../layouts/PaperLayout.astro';
-import SidebarGroup from '../../components/paper/SidebarGroup.astro';
-import SidebarLink from '../../components/paper/SidebarLink.astro';
-import Hero from '../../components/paper/Hero.astro';
-import Footer from '../../components/paper/Footer.astro';
-import '../../styles/paper/global.css';
-import '../../styles/paper/timeline.css';
-import '../../styles/paper/shared-widgets.css';
-import '../../styles/paper/ai-testing.css';
+import PaperLayout from '../../../../layouts/PaperLayout.astro';
+import SidebarGroup from '../../../../components/paper/SidebarGroup.astro';
+import SidebarLink from '../../../../components/paper/SidebarLink.astro';
+import Hero from '../../../../components/paper/Hero.astro';
+import Footer from '../../../../components/paper/Footer.astro';
+import '../../../../styles/paper/global.css';
+import '../../../../styles/paper/timeline.css';
+import '../../../../styles/paper/shared-widgets.css';
+import '../../../../styles/paper/ai-testing.css';
 ---
 
 <PaperLayout title="AI Testing | Functional POC">
@@ -206,7 +206,7 @@ Verify confirmation and that it appears in Open Orders as Pending."</span>
 <span class="cm">// 6. Navigates to Open Orders, asserts "Pending" status</span></code></pre>
 
           <div class="description" style="margin-top: 16px;">
-            <strong>Beyond UI scenarios: <a href="/daisy-chains/" target="_blank">Daisy Chains</a>.</strong> Natural language descriptions can also define entire flow behaviors across bounded contexts. A daisy chain spec declares boundaries, signals, and timing contracts in YAML. Instead of writing imperative test code, you write what the flow should look like: "order placed at storefront &rarr; order.validated within 500ms &rarr; inventory.reserved within 500ms &rarr; payment.charged within 2s." An agent picks up the spec and observes passively at each boundary. No browser, no mocks, just boundary observation across HTTP, NATS, SMTP, or any transport.
+            <strong>Beyond UI scenarios: <a href="/blog/specs/daisy-chains/" target="_blank">Daisy Chains</a>.</strong> Natural language descriptions can also define entire flow behaviors across bounded contexts. A daisy chain spec declares boundaries, signals, and timing contracts in YAML. Instead of writing imperative test code, you write what the flow should look like: "order placed at storefront &rarr; order.validated within 500ms &rarr; inventory.reserved within 500ms &rarr; payment.charged within 2s." An agent picks up the spec and observes passively at each boundary. No browser, no mocks, just boundary observation across HTTP, NATS, SMTP, or any transport.
           </div>
 
           <pre><code><span class="cm"># Daisy Chain spec: natural language behavior description</span>
@@ -231,7 +231,7 @@ Verify confirmation and that it appears in Open Orders as Pending."</span>
 
           <div class="refs-title">References</div>
           <ul class="ref-list">
-            <li><span class="ref-tag tag-proposal">Proposal</span> <span class="ref-authors">Pondigo (2026)</span> · <span class="ref-title">"Daisy Chains: Declarative Flow Testing"</span> <a href="/daisy-chains/" target="_blank">me.pondi.app</a></li>
+            <li><span class="ref-tag tag-proposal">Proposal</span> <span class="ref-authors">Pondigo (2026)</span> · <span class="ref-title">"Daisy Chains: Declarative Flow Testing"</span> <a href="/blog/specs/daisy-chains/" target="_blank">me.pondi.app</a></li>
             <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Chen, Y. et al. (2024)</span> · <span class="ref-title">"ChatUniTest: A Framework for LLM-Based Test Generation"</span> ISSTA. 231 citations. <a href="https://dl.acm.org/doi/10.1145/3663529.3663801" target="_blank">ACM DL</a></li>
             <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Fakhoury, S. et al. (2024)</span> · <span class="ref-title">"LLM-Based Test-Driven Interactive Code Generation"</span> IEEE TSE. 183 citations. <a href="https://arxiv.org/pdf/2404.10100" target="_blank">PDF</a></li>
             <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Mathews, N.S. &amp; Nagappan, M. (2024)</span> · <span class="ref-title">"Test-Driven Development and LLM-Based Code Generation"</span> ASE. <a href="https://dl.acm.org/doi/10.1145/3691620.3695527" target="_blank">ACM DL</a></li>
@@ -438,7 +438,7 @@ oac test <span class="str">"Create tests for the limit order placement flow"</sp
           <h2>Implementation Roadmap <span class="proposal-badge">PLAN</span></h2>
           <div class="tagline">Three progressive phases. From zero cost to full AI in 8 weeks</div>
           <div class="description">
-            No need to build everything at once. The strategy is to increment capabilities in phases, validating each layer before adding the next. Phase 1 costs nothing and can be running in CI within 1-2 weeks. Phase 2 introduces <a href="/daisy-chains/" target="_blank">daisy chain</a> specs for passive flow observation across NATS and HTTP boundaries. Phase 3 adds agents that auto-generate chains from production traffic.
+            No need to build everything at once. The strategy is to increment capabilities in phases, validating each layer before adding the next. Phase 1 costs nothing and can be running in CI within 1-2 weeks. Phase 2 introduces <a href="/blog/specs/daisy-chains/" target="_blank">daisy chain</a> specs for passive flow observation across NATS and HTTP boundaries. Phase 3 adds agents that auto-generate chains from production traffic.
           </div>
 
           <div class="kanban">

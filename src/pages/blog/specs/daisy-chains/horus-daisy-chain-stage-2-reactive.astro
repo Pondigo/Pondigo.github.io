@@ -1,26 +1,26 @@
 ---
-import PaperLayout from '../../layouts/PaperLayout.astro';
-import SidebarGroup from '../../components/paper/SidebarGroup.astro';
-import SidebarLink from '../../components/paper/SidebarLink.astro';
-import Hero from '../../components/paper/Hero.astro';
-import Footer from '../../components/paper/Footer.astro';
-import '../../styles/paper/global.css';
-import '../../styles/paper/article.css';
+import PaperLayout from '../../../../layouts/PaperLayout.astro';
+import SidebarGroup from '../../../../components/paper/SidebarGroup.astro';
+import SidebarLink from '../../../../components/paper/SidebarLink.astro';
+import Hero from '../../../../components/paper/Hero.astro';
+import Footer from '../../../../components/paper/Footer.astro';
+import '../../../../styles/paper/global.css';
+import '../../../../styles/paper/article.css';
 ---
 
 <PaperLayout title="Horus Daisy Chain Stage 2: Reactive">
   <Fragment slot="sidebar-content">
     <SidebarGroup title="Daisy Chains Specs">
-      <SidebarLink href="/daisy-chains/" icon="∞" label="Main Spec" meta="Daisy Chains" />
-      <SidebarLink href="/daisy-chains/daisy-chains-landscape/" icon="▬" label="Landscape" meta="System Overview" />
-      <SidebarLink href="/daisy-chains/daisy-chains-agentic-testing/" icon="◈" label="Agentic Testing" meta="Agent Framework" />
-      <SidebarLink href="/daisy-chains/daisy-chains-research-companion/" icon="§" label="Research Companion" meta="References & Reading" />
+      <SidebarLink href="/blog/specs/daisy-chains/" icon="∞" label="Main Spec" meta="Daisy Chains" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chains-landscape/" icon="▬" label="Landscape" meta="System Overview" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chains-agentic-testing/" icon="◈" label="Agentic Testing" meta="Agent Framework" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chains-research-companion/" icon="§" label="Research Companion" meta="References & Reading" />
     </SidebarGroup>
     <SidebarGroup title="Implementation Specs">
-      <SidebarLink href="/daisy-chains/daisy-chain-matcher-engine-spec/" icon="⚙" label="Matcher Engine" meta="DCME" />
-      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-1-passive/" icon="1" label="Stage 1: Passive" meta="Horus Implementation" />
-      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-2-reactive/" icon="2" label="Stage 2: Reactive" meta="Horus Implementation (This Page)" />
-      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-3-active/" icon="3" label="Stage 3: Active" meta="Horus Implementation" />
+      <SidebarLink href="/blog/specs/daisy-chains/daisy-chain-matcher-engine-spec/" icon="⚙" label="Matcher Engine" meta="DCME" />
+      <SidebarLink href="/blog/specs/daisy-chains/horus-daisy-chain-stage-1-passive/" icon="1" label="Stage 1: Passive" meta="Horus Implementation" />
+      <SidebarLink href="/blog/specs/daisy-chains/horus-daisy-chain-stage-2-reactive/" icon="2" label="Stage 2: Reactive" meta="Horus Implementation (This Page)" />
+      <SidebarLink href="/blog/specs/daisy-chains/horus-daisy-chain-stage-3-active/" icon="3" label="Stage 3: Active" meta="Horus Implementation" />
     </SidebarGroup>
   </Fragment>
 
@@ -34,7 +34,7 @@ import '../../styles/paper/article.css';
   <div class="container">
     <div class="card article">
       <h2>Origin</h2>
-      <p>See <a href="/daisy-chains/horus-daisy-chain-stage-1-passive/#origin">stage 1 — passive</a> for the full hardware-to-DDD mapping. Stage 2 corresponds to <strong>point 7: test vectors applied to scan chains</strong> — a known input (the trigger) with expected output patterns (the outcomes). If the observed output doesn't match any declared outcome, there's a fault.</p>
+      <p>See <a href="/blog/specs/daisy-chains/horus-daisy-chain-stage-1-passive/#origin">stage 1 — passive</a> for the full hardware-to-DDD mapping. Stage 2 corresponds to <strong>point 7: test vectors applied to scan chains</strong> — a known input (the trigger) with expected output patterns (the outcomes). If the observed output doesn't match any declared outcome, there's a fault.</p>
 
       <hr>
 
@@ -188,7 +188,7 @@ import '../../styles/paper/article.css';
       <hr>
 
       <h2>Outcome matching algorithm</h2>
-      <p>The matching engine tracks all outcomes simultaneously per chain instance. See the <a href="/daisy-chains/daisy-chain-matcher-engine-spec/">daisy chain matcher engine spec</a> for the full implementation (<code>ChainInstance</code>, <code>ProcessSignal</code>, cursor tracking, timeout sweeps, and alert classification).</p>
+      <p>The matching engine tracks all outcomes simultaneously per chain instance. See the <a href="/blog/specs/daisy-chains/daisy-chain-matcher-engine-spec/">daisy chain matcher engine spec</a> for the full implementation (<code>ChainInstance</code>, <code>ProcessSignal</code>, cursor tracking, timeout sweeps, and alert classification).</p>
 
       <p>Summary of the algorithm:</p>
 
@@ -228,9 +228,9 @@ import '../../styles/paper/article.css';
   </div>
 
   <div class="stage-nav">
-    <a href="/daisy-chains/horus-daisy-chain-stage-1-passive/"><span style="font-size:1.1rem;">←</span> Stage 1 — Passive</a>
+    <a href="/blog/specs/daisy-chains/horus-daisy-chain-stage-1-passive/"><span style="font-size:1.1rem;">←</span> Stage 1 — Passive</a>
     <div class="stage-nav-label">Implementation Specs</div>
-    <a href="/daisy-chains/horus-daisy-chain-stage-3-active/">Next: Stage 3 — Active <span style="font-size:1.1rem;">→</span></a>
+    <a href="/blog/specs/daisy-chains/horus-daisy-chain-stage-3-active/">Next: Stage 3 — Active <span style="font-size:1.1rem;">→</span></a>
   </div>
 
   <Footer>

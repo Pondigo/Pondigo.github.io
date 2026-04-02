@@ -1,0 +1,165 @@
+---
+import PaperLayout from '../../layouts/PaperLayout.astro';
+import Hero from '../../components/paper/Hero.astro';
+import Footer from '../../components/paper/Footer.astro';
+import '../../styles/paper/global.css';
+---
+
+<PaperLayout title="Blog — Lenora Pondigosa">
+  <Hero
+    title="Blog"
+    subtitle="Technical writing, speculative specs, and opinions"
+    date="Lenora Pondigosa"
+  />
+
+  <div class="container">
+
+    <section class="category">
+      <div class="category-header">
+        <span class="category-tag">ai/</span>
+        <p class="category-desc">Research notes and techniques on AI agents, testing, and developer workflows.</p>
+      </div>
+      <div class="post-grid">
+        <a href="/blog/ai/ai-testing/" class="post-card">
+          <h3>AI Testing</h3>
+          <p>Functional POC — visual regression, self-healing frameworks, natural language testing, agent orchestration.</p>
+        </a>
+        <a href="/blog/ai/skimming-scanning/" class="post-card">
+          <h3>Skimming & Scanning</h3>
+          <p>A developer's survival skill in the age of AI agents — cognitive limits, red flags, and review strategies.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <span class="category-tag">specs/</span>
+        <p class="category-desc">Proposals and speculative designs. Some built, some imagined.</p>
+      </div>
+      <div class="post-grid">
+        <a href="/blog/specs/daisy-chains/" class="post-card">
+          <h3>Daisy Chains</h3>
+          <p>Declarative flow testing — hardware-inspired boundary scan applied to microservice event flows.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <span class="category-tag">opinion/</span>
+        <p class="category-desc">Opinion column — takes on tools, practices, and the industry.</p>
+      </div>
+      <div class="post-grid">
+        <div class="post-card coming-soon">
+          <h3>Coming soon</h3>
+          <p>First post in the works.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <Footer>
+    Lenora Pondigosa · blog index
+  </Footer>
+</PaperLayout>
+
+<style>
+  .category {
+    margin-bottom: 48px;
+  }
+
+  .category-header {
+    margin-bottom: 20px;
+  }
+
+  .category-tag {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: 0.03em;
+  }
+
+  .category-desc {
+    font-size: 0.88rem;
+    color: #888;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .post-card {
+    display: block;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.3s, transform 0.2s;
+  }
+
+  .post-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+  }
+
+  .post-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+
+  .post-card p {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .post-card.coming-soon {
+    border-style: dashed;
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .post-card.coming-soon:hover {
+    box-shadow: none;
+    transform: none;
+  }
+
+  /* Dark mode */
+  :global(body.dark) .category-tag {
+    color: #f0f0f0;
+  }
+
+  :global(body.dark) .post-card {
+    background: #16161b;
+    border-color: rgba(255,255,255,0.06);
+  }
+
+  :global(body.dark) .post-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+
+  :global(body.dark) .post-card h3 {
+    color: #f0f0f0;
+  }
+
+  :global(body.dark) .post-card p {
+    color: #888;
+  }
+
+  @media (max-width: 700px) {
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
