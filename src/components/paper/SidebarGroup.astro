@@ -1,0 +1,12 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="pdf-group">
+  <div class="pdf-group-title">{title}</div>
+  <slot />
+</div>

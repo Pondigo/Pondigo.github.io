@@ -1,0 +1,19 @@
+---
+interface Props {
+  href: string;
+  icon: string;
+  label: string;
+  meta?: string;
+  target?: string;
+}
+
+const { href, icon, label, meta, target } = Astro.props;
+---
+
+<a href={href} class="pdf-link" target={target}>
+  <div class="pdf-icon">{icon}</div>
+  <div>
+    <div>{label}</div>
+    {meta && <div class="pdf-meta">{meta}</div>}
+  </div>
+</a>

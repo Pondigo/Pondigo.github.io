@@ -1,0 +1,422 @@
+---
+import PaperLayout from '../../layouts/PaperLayout.astro';
+import SidebarGroup from '../../components/paper/SidebarGroup.astro';
+import SidebarLink from '../../components/paper/SidebarLink.astro';
+import Hero from '../../components/paper/Hero.astro';
+import Footer from '../../components/paper/Footer.astro';
+import '../../styles/paper/global.css';
+import '../../styles/paper/timeline.css';
+import '../../styles/paper/shared-widgets.css';
+---
+
+<PaperLayout title="Skimming &amp; Scanning — AI Agents">
+  <Fragment slot="sidebar-content">
+    <h3>References</h3>
+
+    <SidebarGroup title="Cognitive Science">
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Miller+1956+magical+number+seven"
+        icon="REF"
+        label="The Magical Number Seven"
+        meta="Miller — 1956 · Psychological Review"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Cowan+2001+magical+number+4"
+        icon="REF"
+        label="Magical Number 4"
+        meta="Cowan — 2001 · Behavioral &amp; Brain Sciences"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Sweller+1988+cognitive+load"
+        icon="REF"
+        label="Cognitive Load Theory"
+        meta="Sweller — 1988 · Cognitive Science"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Broadbent+1958+Perception+Communication"
+        icon="REF"
+        label="Perception and Communication"
+        meta="Broadbent — 1958 · Pergamon Press"
+        target="_blank"
+      />
+    </SidebarGroup>
+
+    <SidebarGroup title="Code Quality &amp; Review">
+      <SidebarLink
+        href="https://arxiv.org/pdf/2601.21276"
+        icon="PDF"
+        label="More Code, Less Reuse"
+        meta="Huang et al. — MSR 2026 · arXiv:2601.21276"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://dl.acm.org/doi/10.1145/3183519.3183525"
+        icon="REF"
+        label="Modern Code Review at Google"
+        meta="Sadowski et al. — ICSE 2018 · ACM DL"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://arxiv.org/pdf/2307.03172"
+        icon="PDF"
+        label="Lost in the Middle"
+        meta="Liu et al. — TACL 2024 · arXiv:2307.03172"
+        target="_blank"
+      />
+    </SidebarGroup>
+
+    <SidebarGroup title="Agent Benchmarks">
+      <SidebarLink
+        href="https://arxiv.org/pdf/2603.15401"
+        icon="PDF"
+        label="SWE-Skills-Bench"
+        meta="Han et al. — 2026 · arXiv:2603.15401"
+        target="_blank"
+      />
+    </SidebarGroup>
+
+    <SidebarGroup title="Related">
+      <SidebarLink
+        href="/skimming-scanning/"
+        icon="HTML"
+        label="AI Processes"
+        meta="Pondigo — 2026 · 7 flujos + 1 proposal"
+      />
+    </SidebarGroup>
+  </Fragment>
+
+  <Hero
+    title="Skimming &amp; Scanning"
+    subtitle="A developer's survival skill in the age of AI agents"
+    date="Lenora AI workflows · march 2026"
+    codeComment="// agents.output.length → ∞ · human.attention.capacity → 4–7 items"
+  />
+
+  <div class="container">
+    <div class="timeline">
+
+      <!-- 1 -->
+      <div class="section">
+        <div class="section-number">1</div>
+        <div class="card">
+          <h2>The Problem</h2>
+          <div class="tagline">AI agents generate thousands of lines — reading it all is not an option</div>
+          <div class="stat-grid">
+            <div class="stat-box">
+              <div class="big-num">1,000s</div>
+              <div class="big-label">of lines generated<br>per agent run</div>
+            </div>
+            <div class="stat-box">
+              <div class="big-num">~23</div>
+              <div class="big-label">LOC per PR average<br>(Huang et al. 2026)</div>
+            </div>
+          </div>
+          <div class="description">
+            But ignoring it is risky. Bad code quietly compounds across turns — repetitive patterns hide in volume, unmaintainable design creeps in unnoticed, and the later you catch it, the more expensive the fix.
+          </div>
+          <ul class="risk-list">
+            <li>Bad code quietly compounds across turns</li>
+            <li>Repetitive patterns hide in volume — invisible at speed</li>
+            <li>Unmaintainable design creeps in unnoticed</li>
+            <li>The later you catch it, the more expensive the fix</li>
+          </ul>
+          <div class="key-insight">
+            <strong>Insight clave:</strong> AI agents produce 1.87× more code redundancy than humans but reviewers react more positively to AI code — a dangerous blind spot (Huang et al. 2026).
+          </div>
+          <div class="refs-title">Referencias</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Huang, H. et al. (2026)</span> — <span class="ref-title">"More Code, Less Reuse: AI-generated PR Quality"</span> MSR. <a href="https://arxiv.org/pdf/2601.21276" target="_blank">PDF</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Sadowski, C. et al. (2018)</span> — <span class="ref-title">"Modern Code Review: A Case Study at Google"</span> ICSE-SEIP. <a href="https://dl.acm.org/doi/10.1145/3183519.3183525" target="_blank">ACM DL</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="section">
+        <div class="section-number">2</div>
+        <div class="card">
+          <h2>Your Brain on Agent Output</h2>
+          <div class="tagline">What cognitive science tells us about human processing limits</div>
+          <div class="cog-grid">
+            <div class="cog-card">
+              <div class="cog-num">4–7</div>
+              <div class="cog-label">items held in working memory at once</div>
+              <div class="cog-ref"><a href="https://scholar.google.com/scholar?q=Miller+1956+magical+number+seven" target="_blank">Miller (1956)</a> · <a href="https://scholar.google.com/scholar?q=Cowan+2001+magical+number+4" target="_blank">Cowan (2001)</a></div>
+            </div>
+            <div class="cog-card">
+              <div class="cog-num">~100</div>
+              <div class="cog-label">WPM reading technical code</div>
+              <div class="cog-ref">vs. ~250 WPM prose · <a href="https://scholar.google.com/scholar?q=Sweller+1988+cognitive+load" target="_blank">Sweller (1988)</a></div>
+            </div>
+            <div class="cog-card">
+              <div class="cog-num">0</div>
+              <div class="cog-label">selective attention under cognitive overload</div>
+              <div class="cog-ref"><a href="https://scholar.google.com/scholar?q=Broadbent+1958+Perception+Communication" target="_blank">Broadbent (1958)</a> — Filter Theory</div>
+            </div>
+          </div>
+          <div class="description">
+            Working memory caps at 4–7 items (refined to 4±1 for complex tasks). Technical code reads at ~100 WPM versus ~250 WPM for narrative prose. Under cognitive overload, selective attention collapses entirely — your brain's filter stops working.
+          </div>
+          <div class="key-insight">
+            <strong>Insight clave:</strong> You physically cannot process 1,000+ lines of agent output. The question is not whether to skip — it's how to skip intelligently.
+          </div>
+          <div class="refs-title">Referencias</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Miller, G.A. (1956)</span> — <span class="ref-title">"The Magical Number Seven, Plus or Minus Two"</span> Psychological Review, 63(2). <a href="https://scholar.google.com/scholar?q=Miller+1956+magical+number+seven" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Cowan, N. (2001)</span> — <span class="ref-title">"The magical number 4 in short-term memory"</span> Behavioral &amp; Brain Sciences, 24(1). <a href="https://scholar.google.com/scholar?q=Cowan+2001+magical+number+4" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Sweller, J. (1988)</span> — <span class="ref-title">"Cognitive load during problem solving"</span> Cognitive Science, 12(2). <a href="https://scholar.google.com/scholar?q=Sweller+1988+cognitive+load" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-book">Book</span> <span class="ref-authors">Broadbent, D.E. (1958)</span> — <span class="ref-title">"Perception and Communication"</span> Pergamon Press.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="section">
+        <div class="section-number">3</div>
+        <div class="card">
+          <h2>What We're Looking For</h2>
+          <div class="tagline">Bad patterns hide in volume — these are the red flags to detect early</div>
+
+          <div class="pattern-row">
+            <div class="pr-left">
+              <h3>Repetitive Code</h3>
+              <p>The agent copies logic instead of abstracting it. DRY violations that feel "good enough" because they work — until you need to change them across 12 copies.</p>
+            </div>
+            <div class="pr-right">
+              <pre><span class="fn">handleUserCreate</span>() &#123; <span class="cm">// 80 lines</span> &#125;
+<span class="fn">handleUserUpdate</span>() &#123; <span class="cm">// 78 lines</span> &#125;  <span class="bad">// 80% identical</span>
+<span class="fn">handleUserDelete</span>() &#123; <span class="cm">// 75 lines</span> &#125;  <span class="bad">// still 80%</span></pre>
+            </div>
+          </div>
+
+          <div class="pattern-row">
+            <div class="pr-left">
+              <h3>Non-Maintainable Design</h3>
+              <p>Deeply nested logic, missing separation of concerns, functions that do too much. Technically correct, practically a nightmare to extend or test.</p>
+            </div>
+            <div class="pr-right">
+              <pre><span class="fn">processAll</span>(data) &#123;
+  <span class="cm">// 200 lines</span>
+  <span class="cm">// 10 responsibilities</span>
+  <span class="bad">// good luck changing this</span>
+&#125;</pre>
+            </div>
+          </div>
+
+          <div class="pattern-row">
+            <div class="pr-left">
+              <h3>Compounding Patterns</h3>
+              <p>A small bad decision in turn 1 becomes a hard-wired convention by turn 12. Agents repeat and amplify their own prior outputs.</p>
+            </div>
+            <div class="pr-right">
+              <pre><span class="cm">// turn 1:  bad naming convention</span>
+<span class="cm">// turn 6:  same bad names everywhere</span>
+<span class="bad">// turn 12: refactoring costs 3×</span></pre>
+            </div>
+          </div>
+
+          <div class="key-insight">
+            <strong>Insight clave:</strong> AI agents generate Type-4 semantic clones — functionally identical code with different syntax. Existing clone detection tools miss them entirely (Huang et al. 2026).
+          </div>
+          <div class="refs-title">Referencias</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Huang, H. et al. (2026)</span> — <span class="ref-title">"More Code, Less Reuse"</span> — AMR 0.2867 (agents) vs 0.1532 (humans). <a href="https://arxiv.org/pdf/2601.21276" target="_blank">PDF</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Liu, N.F. et al. (2024)</span> — <span class="ref-title">"Lost in the Middle"</span> — context degradation amplifies repetition. <a href="https://arxiv.org/pdf/2307.03172" target="_blank">PDF</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="section">
+        <div class="section-number">4</div>
+        <div class="card">
+          <h2>Two Tools, One Goal</h2>
+          <div class="tagline">Skimming and scanning are complementary — not interchangeable</div>
+
+          <div class="compare-grid">
+            <div class="compare-panel">
+              <div class="cp-label">Technique 1</div>
+              <h3>Skimming</h3>
+              <div class="cp-tagline">Get the big picture fast</div>
+              <ul class="cp-list">
+                <li>Read at speed to assess overall direction</li>
+                <li>Catch structural problems: does this make sense at all?</li>
+                <li>Identify if the agent is going off track</li>
+                <li>~10–20 seconds per output block is enough</li>
+              </ul>
+              <div class="cp-question">"Is the agent on the right path?"</div>
+            </div>
+            <div class="compare-panel">
+              <div class="cp-label">Technique 2</div>
+              <h3>Scanning</h3>
+              <div class="cp-tagline">Hunt for specific signals</div>
+              <ul class="cp-list">
+                <li>Move eyes fast looking for known red flags</li>
+                <li>Target keywords: repeated names, long functions, God objects</li>
+                <li>Jump across locations — not linear reading</li>
+                <li>You know bad patterns — scan for their fingerprints</li>
+              </ul>
+              <div class="cp-question">"Is a bad pattern hiding in here?"</div>
+            </div>
+          </div>
+
+          <div class="key-insight">
+            <strong>Insight clave:</strong> Skimming answers "is this going in the right direction?" — scanning answers "is something wrong hiding in here?" Use them in sequence, not interchangeably.
+          </div>
+          <div class="refs-title">Referencias</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Sweller, J. (1988)</span> — <span class="ref-title">"Cognitive Load Theory"</span> — cognitive capacity constrains review strategy. <a href="https://scholar.google.com/scholar?q=Sweller+1988+cognitive+load" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Rigby, P.C. &amp; Bird, C. (2013)</span> — <span class="ref-title">"Convergent Contemporary Software Peer Review"</span> — effective reviews target ~20 LOC. <a href="https://dl.acm.org/doi/10.1145/2491411.2491444" target="_blank">ACM DL</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="section">
+        <div class="section-number">5</div>
+        <div class="card">
+          <h2>The Normal Case</h2>
+          <div class="tagline">Reading and steering in real-time as the LLM streams output</div>
+          <div class="description">
+            The window to intervene is short. As the LLM generates output, you skim the structure to check direction, then scan for red flags. If a pattern is spotted, you intervene early and redirect the prompt. The loop runs continuously — every intervention is cheaper than the next one you skip.
+          </div>
+          <div class="stat-grid">
+            <div class="stat-box">
+              <div class="big-num">Skim</div>
+              <div class="big-label">Structure → direction check<br>~10–20 seconds per block</div>
+            </div>
+            <div class="stat-box">
+              <div class="big-num">Scan</div>
+              <div class="big-label">Red flags → intervene early<br>pattern spotted? → redirect</div>
+            </div>
+          </div>
+          <div class="key-insight">
+            <strong>Insight clave:</strong> LLM starts generating → skim the structure → scan for red flags → intervene early → redirect prompt → loop. The cost of correction compounds exponentially with each turn you skip.
+          </div>
+          <div class="refs-title">Referencias</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Sadowski, C. et al. (2018)</span> — <span class="ref-title">"Modern Code Review at Google"</span> — median first response ~1 hour, review is continuous. <a href="https://dl.acm.org/doi/10.1145/3183519.3183525" target="_blank">ACM DL</a></li>
+            <li><span class="ref-tag tag-docs">Docs</span> <span class="ref-authors">Google</span> — <span class="ref-title">"Small CLs" Engineering Practices</span>. <a href="https://google.github.io/eng-practices/review/developer/small-cls.html" target="_blank">google.github.io</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="section">
+        <div class="section-number">6</div>
+        <div class="card">
+          <h2>The Extreme Case</h2>
+          <div class="tagline">Multiple agents, parallel outputs, exponentially more noise</div>
+          <div class="description">
+            Experimental Agent Teams Mode: multiple agents running in parallel, each generating output in their own panel. Bad patterns don't announce themselves — they accumulate silently across panels while you're watching a different one.
+          </div>
+          <div class="cmd-block">
+            <span class="prompt">$</span> CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude
+          </div>
+          <div class="terminal-grid">
+            <div class="terminal">
+              <div class="terminal-bar"><span class="terminal-dot"></span> agent-1 [orchestrator]</div>
+              <div class="terminal-body">
+                <span class="tl">&gt; analyzing codebase...</span>
+                <span class="tl">&gt; spawning worker agents</span>
+                <span class="tl">&gt; task: refactor db layer</span>
+                <span class="tl">&gt; writing models/user.go</span>
+                <span class="tl">&gt; writing models/order.go</span>
+              </div>
+            </div>
+            <div class="terminal">
+              <div class="terminal-bar"><span class="terminal-dot"></span> agent-2 [worker: db]</div>
+              <div class="terminal-body">
+                <span class="tl">&gt; received: refactor db</span>
+                <span class="tl">&gt; writing db/queries.go</span>
+                <span class="tl">&gt; creating 12 new files</span>
+                <span class="tl">&gt; 847 lines generated...</span>
+                <span class="tl warn">&gt; pattern: copy-paste loop</span>
+              </div>
+            </div>
+            <div class="terminal">
+              <div class="terminal-bar"><span class="terminal-dot"></span> agent-3 [worker: api]</div>
+              <div class="terminal-body">
+                <span class="tl">&gt; received: api layer</span>
+                <span class="tl">&gt; creating handlers...</span>
+                <span class="tl">&gt; handleUser()  &#123; 120 lines &#125;</span>
+                <span class="tl">&gt; handleOrder() &#123; 118 lines &#125;</span>
+                <span class="tl warn">&gt; 90% identical — not abstracted</span>
+              </div>
+            </div>
+          </div>
+          <div class="key-insight">
+            <strong>Insight clave:</strong> In multi-agent mode, your working memory of 4–7 items is split across N agents. Parallelize your attention deliberately, not accidentally.
+          </div>
+          <div class="refs-title">Referencias</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Han, T. et al. (2026)</span> — <span class="ref-title">"SWE-Skills-Bench: Agent Skills in Real-World SE"</span> <a href="https://arxiv.org/pdf/2603.15401" target="_blank">PDF</a></li>
+            <li><span class="ref-tag tag-book">Book</span> <span class="ref-authors">Broadbent, D.E. (1958)</span> — <span class="ref-title">"Perception and Communication"</span> — Filter Theory: overload collapses focus entirely.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="section">
+        <div class="section-number">7</div>
+        <div class="card">
+          <h2>Recommendations</h2>
+          <div class="tagline">Hard-won advice from working with AI agents daily</div>
+
+          <div class="rec-row">
+            <div class="rec-num">01</div>
+            <div class="rec-text"><strong>Train your eye on bad patterns first.</strong> You can't scan for what you don't recognize. Study anti-patterns deliberately — repetition, God functions, naming drift — before you need to spot them at speed.</div>
+          </div>
+          <div class="rec-row">
+            <div class="rec-num">02</div>
+            <div class="rec-text"><strong>Set checkpoints, not just endpoints.</strong> Review agent output every 100–200 lines — not after 2,000. The earlier the catch, the smaller the revert.</div>
+          </div>
+          <div class="rec-row">
+            <div class="rec-num">03</div>
+            <div class="rec-text"><strong>In multi-agent mode, assign one focus per panel.</strong> Don't try to track 3 agents simultaneously — your working memory caps at 4–7 items total.</div>
+          </div>
+          <div class="rec-row">
+            <div class="rec-num">04</div>
+            <div class="rec-text"><strong>Trust your gut signal.</strong> If something feels "off" while skimming, stop and scan. Intuition is trained pattern recognition — it fires before your conscious mind catches up.</div>
+          </div>
+          <div class="rec-row">
+            <div class="rec-num">05</div>
+            <div class="rec-text"><strong>Redirect early and clearly.</strong> A precise correction now saves 10× the cost of refactoring after 500 more generated lines. The compound interest of bad patterns works against you fast.</div>
+          </div>
+
+          <div class="key-insight" style="margin-top: 18px;">
+            <strong>Insight clave:</strong> Google's code review data shows ~24 LOC median per CL, with ~1 hour median first response. Small and fast — not big and thorough — is the pattern that works at scale (Sadowski et al. 2018).
+          </div>
+          <div class="refs-title">Referencias</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Sadowski, C. et al. (2018)</span> — <span class="ref-title">"Modern Code Review at Google"</span> — ~24 LOC median, 1 reviewer norm. <a href="https://dl.acm.org/doi/10.1145/3183519.3183525" target="_blank">ACM DL</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Rigby, P.C. &amp; Bird, C. (2013)</span> — <span class="ref-title">"Convergent Contemporary Software Peer Review"</span> — practices converge to ~20 LOC, 2 reviewers, &lt;1 day turnaround. <a href="https://dl.acm.org/doi/10.1145/2491411.2491444" target="_blank">ACM DL</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Takeaway -->
+      <div class="section">
+        <div class="section-number" style="background:#555;">&#10003;</div>
+        <div class="takeaway">
+          <div class="eyebrow">The Takeaway</div>
+          <h2>Read less.<br><span>Detect more.</span></h2>
+          <div class="ta-sub">
+            You'll never read every line an agent writes.
+            But you can always catch the patterns that matter —
+            if you know what to look for and how to look fast.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <Footer>
+    Lenora AI workflows · skimming &amp; scanning · march 2026<br>
+    8 referencias · 7 secciones · companion to AI Processes
+  </Footer>
+</PaperLayout>

@@ -1,0 +1,188 @@
+/* ── Tool cards ── */
+.tool-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 18px;
+}
+.tool-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.tool-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+.tool-icon.bg-temporal { background: #1a1a2e; }
+.tool-icon.bg-conductor { background: #2c3e50; }
+.tool-icon.bg-airflow { background: #017cee; }
+.tool-icon.bg-zeebe { background: #ff6600; }
+.tool-icon.bg-pact { background: #c43d57; }
+.tool-icon.bg-specmatic { background: #2196f3; }
+.tool-icon.bg-spring { background: #6db33f; }
+.tool-icon.bg-asyncapi { background: #764abc; }
+.tool-icon.bg-otel { background: #f5a623; }
+.tool-card-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+.tool-card-header .tool-version {
+  font-size: 0.72rem;
+  color: #999;
+}
+.tool-card p {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+@media (max-width: 600px) { .pros-cons { grid-template-columns: 1fr; } }
+.pros-cons .pros, .pros-cons .cons {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+.pros-cons h4 {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #999;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.pros-cons ul {
+  list-style: none;
+  padding: 0;
+}
+.pros-cons li {
+  padding: 3px 0;
+  color: #555;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.pros li::before { content: '+'; color: #2a7d2a; font-weight: 700; }
+.cons li::before { content: '\2212'; color: #c33; font-weight: 700; }
+
+/* ── Verdict badges ── */
+.verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.verdict-complement { background: #e8f5e9; color: #2e7d32; }
+.verdict-adopt { background: #e3f2fd; color: #1565c0; }
+.verdict-irrelevant { background: #f5f5f5; color: #999; }
+.verdict-covers { background: #fff8e1; color: #f57f17; }
+.verdict-replace { background: #ffebee; color: #c62828; }
+
+/* ── Master comparison table ── */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  font-size: 0.78rem;
+}
+.comp-table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 700;
+  color: #1a1a1a;
+  background: #f8f8f8;
+  border-bottom: 1px solid #e8e8e8;
+}
+.comp-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #555;
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table .col-daisy {
+  background: rgba(26,26,26,0.03);
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* ── Mermaid wrapper ── */
+.mermaid-wrap {
+  background: #f8f8f8;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 18px;
+  overflow-x: auto;
+}
+.mermaid-wrap .mermaid {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Dark Mode — Landscape ── */
+body.dark .tool-card {
+  background: #16161b;
+  border-color: rgba(255,255,255,0.06);
+}
+body.dark .tool-card-header h3 { color: #f0f0f0; }
+body.dark .tool-card-header .tool-version { color: #666; }
+body.dark .tool-card p { color: #aaa; }
+body.dark .pros-cons h4 { color: #666; }
+body.dark .pros-cons li { color: #aaa; }
+body.dark .pros li::before { color: #4caf50; }
+body.dark .cons li::before { color: #ef5350; }
+
+body.dark .verdict-complement { background: rgba(76,175,80,0.15); color: #81c784; }
+body.dark .verdict-adopt { background: rgba(33,150,243,0.12); color: #90caf9; }
+body.dark .verdict-irrelevant { background: rgba(255,255,255,0.05); color: #666; }
+body.dark .verdict-covers { background: rgba(255,193,7,0.12); color: #ffd54f; }
+body.dark .verdict-replace { background: rgba(244,67,54,0.12); color: #ef9a9a; }
+
+body.dark .comp-table {
+  background: #16161b;
+  border-color: rgba(255,255,255,0.06);
+}
+body.dark .comp-table th {
+  color: #f0f0f0;
+  background: rgba(255,255,255,0.03);
+  border-bottom-color: rgba(255,255,255,0.06);
+}
+body.dark .comp-table td {
+  color: #aaa;
+  border-bottom-color: rgba(255,255,255,0.04);
+}
+body.dark .comp-table .col-daisy {
+  background: rgba(255,255,255,0.04);
+  color: #f0f0f0;
+}
+
+body.dark .mermaid-wrap {
+  background: #111116;
+  border-color: rgba(255,255,255,0.08);
+}

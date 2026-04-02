@@ -1,0 +1,264 @@
+---
+import PaperLayout from '../../layouts/PaperLayout.astro';
+import SidebarGroup from '../../components/paper/SidebarGroup.astro';
+import SidebarLink from '../../components/paper/SidebarLink.astro';
+import Hero from '../../components/paper/Hero.astro';
+import Footer from '../../components/paper/Footer.astro';
+import '../../styles/paper/global.css';
+import '../../styles/paper/article.css';
+---
+
+<PaperLayout title="Horus Daisy Chain Stage 1: Passive">
+  <Fragment slot="sidebar-content">
+    <SidebarGroup title="Daisy Chains Specs">
+      <SidebarLink href="/daisy-chains/" icon="∞" label="Main Spec" meta="Daisy Chains" />
+      <SidebarLink href="/daisy-chains/daisy-chains-landscape/" icon="▬" label="Landscape" meta="System Overview" />
+      <SidebarLink href="/daisy-chains/daisy-chains-agentic-testing/" icon="◈" label="Agentic Testing" meta="Agent Framework" />
+      <SidebarLink href="/daisy-chains/daisy-chains-research-companion/" icon="§" label="Research Companion" meta="References & Reading" />
+    </SidebarGroup>
+    <SidebarGroup title="Implementation Specs">
+      <SidebarLink href="/daisy-chains/daisy-chain-matcher-engine-spec/" icon="⚙" label="Matcher Engine" meta="DCME" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-1-passive/" icon="1" label="Stage 1: Passive" meta="Horus Implementation (This Page)" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-2-reactive/" icon="2" label="Stage 2: Reactive" meta="Horus Implementation" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-3-active/" icon="3" label="Stage 3: Active" meta="Horus Implementation" />
+    </SidebarGroup>
+  </Fragment>
+
+  <Hero
+    title="Stage 1: Passive"
+    subtitle="Observe. Don't touch."
+    date="Lenora AI workflows · march 2026"
+    codeComment="// Horus Daisy Chain — Stage 1"
+  />
+
+  <div class="container">
+    <div class="card article">
+      <h2 id="origin">Origin</h2>
+      <p>This spec emerged from mapping hardware testing concepts to event-driven DDD architecture:</p>
+      <ol>
+        <li><strong>ISA as stable contract</strong> — the instruction set architecture is the port, the microarchitecture is the adapter. Same boundary concept as hexagonal/DDD.</li>
+        <li><strong>JTAG boundary scan</strong> — hardware tests interconnections between chips without probing internals. Test at the I/O pins, not inside the logic. Maps to testing at anti-corruption layer / port boundaries in DDD.</li>
+        <li><strong>Scan chains</strong> — JTAG daisy-chains boundary scan cells across multiple chips. Passive, declared, not instrumented. DCME as the scan chain controller observing message flow across bounded contexts.</li>
+        <li><strong>Daisy chains &gt; sagas</strong> — sagas need an external orchestrator watching and compensating. Daisy chains are self-describing: each link knows "I received X, I must produce Y, next link expects Y." No coordinator — just a declared expected pattern and an observer that detects breaks.</li>
+        <li><strong>Embedded state + WAL</strong> — hardware holds state in registers, writes to flash only for recovery. Bounded contexts hold aggregate state in-memory, WAL is the recovery journal. PostgreSQL becomes cold storage, not the hot path.</li>
+        <li><strong>Transport-agnostic chains</strong> — a chain starts as HTTP from the browser and transitions to NATS internally. The transport is the adapter, the chain definition is the port.</li>
+        <li><strong>Test vectors applied to scan chains</strong> — in hardware, a test vector is a known input applied to a scan chain with expected output patterns. If the observed output doesn't match, there's a fault. A chain definition with a trigger and expected outcomes is exactly this: inject a signal, verify which output pattern the system produces.</li>
+        <li><strong>Progressive test extraction</strong> — hardware testing follows a progression: functional test (boot the board, run the app) → extract boundary scan vectors from observed behavior → run scan-only without booting the full system → ATPG (Automatic Test Pattern Generation) derives test vectors from the circuit description. DCME follows the same arc: Playwright E2E (functional test) → direct injection (scan vectors) → auto-generated specs from observed production traffic (ATPG).</li>
+      </ol>
+
+      <p>The fundamental insight: hardware engineers solved interconnection testing decades ago with declared patterns + passive boundary observation. Software is over-engineering it with sagas, orchestrators, and per-service instrumentation.</p>
+
+      <p>This spec is split into three stages that mirror the hardware progression:</p>
+
+      <ul>
+        <li><strong>Stage 1 (passive)</strong> — connect the logic analyzer. Observe, don't touch.</li>
+        <li><strong>Stage 2 (reactive)</strong> — boundary scan with expected output vectors. Watch for a trigger, classify which outcome path.</li>
+        <li><strong>Stage 3 (active)</strong> — apply test vectors. Inject the trigger, verify the expected outcome. Progressive from Playwright → direct injection → ATPG.</li>
+      </ul>
+
+      <hr>
+
+      <h2>What is stage 1</h2>
+
+      <p>DCME watches traffic flowing through the system. No triggers, no injection, no interaction. Pure observation against declared chain definitions. Continuous production monitoring.</p>
+
+      <p>This is the equivalent of connecting a logic analyzer to a live circuit — you see what's happening, you don't change anything.</p>
+
+      <hr>
+
+      <h2>Architecture</h2>
+
+      <pre>                    ┌─────────────────────────────┐
+                    │           DCME               │
+                    │  Daisy Chain Matcher Engine   │
+                    │                              │
+                    │  Chain definitions (YAML)    │
+                    │  Matcher engine              │
+                    │  Alert evaluator             │
+                    └──────┬──────────┬────────────┘
+                           │          │
+              ┌────────────┘          └────────────┐
+              │ passive subscribe                  │ SSE ingest
+              │ (NATS subjects from                │ ($&#123;ENV&#125;.example.io/sse)
+              │  chain definitions)                │
+              │                                    │
+     ┌────────▼────────┐              ┌────────────▼────────────┐
+     │  NATS JetStream  │              │   HTTP scan cells       │
+     │  (direct observe)│              │   (push to SSE)         │
+     └──────────────────┘              └─────────────────────────┘</pre>
+
+      <p>The chain definition is the port. The transport observer (HTTP, NATS) is the adapter. NATS signals are observed passively (DCME subscribes directly). HTTP signals are pushed via scan cell middleware.</p>
+
+      <hr>
+
+      <h2>Assumptions</h2>
+
+      <p>This spec relies on invariants that already exist in the platform. The daisy chain observer is safe to run without coordination overhead because of these guarantees:</p>
+
+      <ul>
+        <li><strong>Kong injects requestID at the edge.</strong> Every HTTP request entering the platform gets a unique <code>requestID</code> from the API gateway. This is not a new requirement — it's how the platform works today.</li>
+        <li><strong>Services propagate correlationId in NATS message bodies.</strong> Every service copies the <code>requestID</code> into outbound NATS messages as <code>correlationId</code>. This convention is already enforced across all services.</li>
+        <li><strong>DCME cluster pools, NATS routes.</strong> DCME cluster v1 uses pooling — any node can pick up any signal. No consistent hashing, no instance ownership, no dedup needed. NATS subject subscriptions handle the routing. The engine doesn't need to know about the cluster topology.</li>
+        <li><strong>Correlation is an existing invariant, not a new requirement.</strong> The daisy chain spec observes a propagation guarantee that the platform already provides. A different platform without Kong + service-level correlationId propagation would need to solve correlation first before this spec applies.</li>
+      </ul>
+
+      <hr>
+
+      <h2>Configuration</h2>
+
+      <pre>config:
+  scan_endpoint: http://$&#123;ENV&#125;.example.io/sse
+  default_timeout: 5s
+  default_latency_threshold: 100ms
+  default_correlation: $.body.correlationId</pre>
+
+      <ul>
+        <li><code>scan_endpoint</code> — where scan cells push signals. Resolves per environment: <code>dev.example.io</code>, <code>staging.example.io</code>, <code>prod.example.io</code>.</li>
+        <li><code>default_correlation</code> — <code>correlationId</code> already exists in every message body. Per-link override only when a transport doesn't follow the convention.</li>
+      </ul>
+
+      <hr>
+
+      <h2>Adapters</h2>
+
+      <pre>adapters:
+  nats:
+    type: passive
+    matching: subject-native + body
+
+  http:
+    type: push
+    endpoint: http://$&#123;ENV&#125;.example.io/sse
+
+  script:
+    type: exec</pre>
+
+      <p>For NATS, DCME subscribes using the actual subject pattern from the chain definition. NATS server does the filtering — DCME never sees messages that don't match.</p>
+
+      <p>For HTTP, a thin middleware in each service extracts the signal and pushes to DCME SSE endpoint.</p>
+
+      <p>For scripts, DCME executes directly. No endpoint needed.</p>
+
+      <hr>
+
+      <h2>Signal definition</h2>
+
+      <p>Each link in a chain defines a signal using the <strong>signal + matcher</strong> pattern. The <code>match</code> block is generic key-value equality. No expression parser, no DSL.</p>
+
+      <p>The matching algorithm, core types, chain instance tracking, and alert classification are defined in the <a href="/daisy-chains/daisy-chain-matcher-engine-spec/">daisy chain matcher engine spec</a>. The consumer (e.g. Horus) implements the engine's ports (<code>SignalSource</code>, <code>AlertSink</code>, <code>ChainStore</code>, <code>Injector</code>) with its own adapters.</p>
+
+      <h3>Signal direction</h3>
+
+      <ul>
+        <li><strong><code>emit</code></strong> — this service produced a signal. DCME watches for it on the transport. "The signal left this service."</li>
+        <li><strong><code>expect</code></strong> — this service received and processed a signal. DCME observes via the consumer's scan cell. "The signal was consumed."</li>
+      </ul>
+
+      <h3>Matching</h3>
+
+      <p>Two-layer matching for NATS signals:</p>
+
+      <p><strong>Layer 1 — transport-native.</strong> DCME subscribes using the subject pattern. NATS wildcard matching (<code>*</code> single token, <code>&gt;</code> multi-token) is used natively. This is the <code>SignalSource</code> adapter — it translates NATS subscriptions into engine signals.</p>
+
+      <p><strong>Layer 2 — body matching.</strong> Handled by the engine's <code>Link.Matches()</code> method. Key-value equality with dot-notation traversal.</p>
+
+      <h3>Correlation</h3>
+
+      <p><code>correlationId</code> exists in every message body by convention. Set once in config. Per-link override only for edge cases.</p>
+
+      <h3>Scan cell payload</h3>
+
+      <pre>&#123;
+  "service": "service-b",
+  "via": "nats",
+  "direction": "emit",
+  "timestamp": "2026-03-24T12:04:31.010Z",
+  "body": &#123;
+    "subject": "events.processed.REQ-1234",
+    "type": "EventProcessed",
+    "correlationId": "REQ-1234",
+    "stream": "EVENTS",
+    "consumer": "service-b-handler"
+  &#125;
+&#125;</pre>
+
+      <hr>
+
+      <h2>Example: passive chain definition</h2>
+
+      <p>One example showing the format. Shows HTTP → NATS transport crossing, emit and expect directions, and NATS subject matching.</p>
+
+      <pre>specs:
+  example_chain:
+    mode: passive
+    timeout: 5s
+    links:
+      - service: service-a
+        signal:
+          direction: emit
+          via: http
+          match:
+            method: POST
+            path: /api/resource
+            status: 201
+
+      - service: service-b
+        signal:
+          direction: expect
+          via: nats
+          match:
+            subject: "events.processed.*"
+            consumer: service-b-handler
+
+      - service: service-b
+        signal:
+          direction: emit
+          via: nats
+          match:
+            subject: "results.completed.*"</pre>
+
+      <hr>
+
+      <h2>Alert types</h2>
+
+      <h3>Chain break</h3>
+      <p>Emit seen from upstream, expect never arrived at downstream within timeout. Delivery or consumption failure.</p>
+
+      <h3>Latency threshold</h3>
+      <p>Link fired but exceeded p95 baseline or configured <code>default_latency_threshold</code>. Chain completed but slow.</p>
+
+      <h3>Sequence violation</h3>
+      <p>Expect arrived before upstream emit. Clock skew, race condition, or message replay.</p>
+
+      <h3>Orphan event</h3>
+      <p>Event arrived with a <code>correlationId</code> that doesn't match any active chain instance.</p>
+
+      <hr>
+
+      <h2>Embedded state + WAL runtime model</h2>
+
+      <p>Each bounded context holds its aggregate state in-memory. The WAL (append-only log) is the recovery journal — only replayed on restart or crash. PostgreSQL becomes cold storage and backup, not the hot path.</p>
+
+      <p>DCME never queries a database. All observability comes from the event stream. The aggregate validates its own invariants on reconstitution from WAL (the BIST — Built-In Self-Test — pattern from hardware).</p>
+    </div>
+  </div>
+
+  <div style="max-width:900px;margin:0 auto;padding:32px 24px 0;">
+    <div class="rfc-block">
+      <div class="rfc-eyebrow">RFC — Request for Comments</div>
+      <div class="rfc-title">This is a spec proposal, not written in stone.</div>
+      <div class="rfc-desc">We want your feedback — corrections, concerns, alternatives, endorsements. Everything is open for discussion.</div>
+      <div class="rfc-links">Send comments to<br><a href="mailto:lenora.pondigo+dc-rfc@gmail.com">lenora.pondigo+dc-rfc@gmail.com</a></div>
+    </div>
+  </div>
+
+  <div class="stage-nav">
+    <a href="/daisy-chains/daisy-chain-matcher-engine-spec/"><span style="font-size:1.1rem;">←</span> Matcher Engine</a>
+    <div class="stage-nav-label">Implementation Specs</div>
+    <a href="/daisy-chains/horus-daisy-chain-stage-2-reactive/">Next: Stage 2 — Reactive <span style="font-size:1.1rem;">→</span></a>
+  </div>
+
+  <Footer>
+    Daisy Chains · Stage 1: Passive · March 2026 · Lenora AI workflows
+  </Footer>
+</PaperLayout>

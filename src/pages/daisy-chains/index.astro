@@ -1,0 +1,640 @@
+---
+import PaperLayout from '../../layouts/PaperLayout.astro';
+import SidebarGroup from '../../components/paper/SidebarGroup.astro';
+import SidebarLink from '../../components/paper/SidebarLink.astro';
+import Hero from '../../components/paper/Hero.astro';
+import Footer from '../../components/paper/Footer.astro';
+import '../../styles/paper/global.css';
+import '../../styles/paper/timeline.css';
+import '../../styles/paper/shared-widgets.css';
+import '../../styles/paper/daisy-chains-index.css';
+---
+
+<PaperLayout title="Daisy Chains — Declarative Flow Testing">
+  <Fragment slot="sidebar-content">
+    <h3>References</h3>
+
+    <SidebarGroup title="Hardware Testing &amp; JTAG">
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=IEEE+1149.1+boundary+scan+standard+1990"
+        icon="STD"
+        label="IEEE Std 1149.1-1990"
+        meta="Boundary Scan (JTAG)"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Parker+2003+defect+coverage+boundary+scan"
+        icon="REF"
+        label="Defect Coverage of Boundary-Scan Tests"
+        meta="International Test Conference"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Wagner+1987+interconnect+testing+boundary+scan"
+        icon="REF"
+        label="Interconnect Testing with Boundary Scan"
+        meta="IEEE International Test Conf."
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Cheng+Krstic+1999+automatic+test+pattern+generation"
+        icon="REF"
+        label="Current Directions in ATPG"
+        meta="IEEE Computer"
+        target="_blank"
+      />
+    </SidebarGroup>
+
+    <SidebarGroup title="Microservice Architecture">
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Megargel+Poskitt+2021+orchestration+choreography+decision+framework"
+        icon="REF"
+        label="Orchestration vs. Choreography: A Decision Framework"
+        meta="IEEE ICCCN"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Daraghmi+2022+enhancing+saga+pattern+distributed+transactions"
+        icon="REF"
+        label="Enhancing Saga Pattern for Distributed Transactions"
+        meta="Applied Sciences, MDPI"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://arxiv.org/abs/2603.20942"
+        icon="PDF"
+        label="Accompanist: Resilient Choreographic Programming"
+        meta="arXiv:2603.20942"
+        target="_blank"
+      />
+    </SidebarGroup>
+
+    <SidebarGroup title="Contract &amp; Event-Driven Testing">
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Wu+Ma+Shau+2022+consumer+driven+contracts+event+driven+microservices"
+        icon="REF"
+        label="Testing Event-Driven Microservices via Contracts"
+        meta="APSEC, IEEE"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Lehva+Makitalo+Mikkonen+2019+consumer+driven+contract+tests+microservices"
+        icon="REF"
+        label="Consumer-Driven Contract Tests: A Case Study"
+        meta="Springer"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Santos+Cunha+Macedo+2022+schema+guided+testing+message+oriented"
+        icon="REF"
+        label="Schema-Guided Testing of Message-Oriented Systems"
+        meta="INESTEC"
+        target="_blank"
+      />
+    </SidebarGroup>
+
+    <SidebarGroup title="Runtime Verification &amp; Observability">
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Francalanza+Perez+Sanchez+2018+runtime+verification+decentralised+distributed"
+        icon="REF"
+        label="Runtime Verification for Distributed Systems"
+        meta="Springer"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Li+Peng+Xiang+2022+observability+microservice+tracing"
+        icon="REF"
+        label="Enjoy Your Observability: Industrial Survey"
+        meta="Empirical SE, Springer"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Hierons+2011+oracles+distributed+testing"
+        icon="REF"
+        label="Oracles for Distributed Testing"
+        meta="IEEE TSE"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://arxiv.org/abs/2603.20107"
+        icon="PDF"
+        label="Distributed Privacy-Preserving Monitoring"
+        meta="arXiv:2603.20107"
+        target="_blank"
+      />
+    </SidebarGroup>
+
+    <SidebarGroup title="Agentic Testing">
+      <SidebarLink
+        href="https://arxiv.org/abs/2601.02454"
+        icon="PDF"
+        label="The Rise of Agentic Testing"
+        meta="arXiv:2601.02454"
+        target="_blank"
+      />
+      <SidebarLink
+        href="https://scholar.google.com/scholar?q=Martin+Olszewska+2025+automation+testing+autonomous+agentic+AI"
+        icon="REF"
+        label="Automation Testing for Reliable Agentic AI"
+        meta="IEEE"
+        target="_blank"
+      />
+    </SidebarGroup>
+
+    <SidebarGroup title="Related">
+      <SidebarLink
+        href="/daisy-chains/daisy-chains-landscape/"
+        icon="HTML"
+        label="Testing Landscape Comparison"
+        meta="tools, formal methods, pros/cons"
+      />
+      <SidebarLink
+        href="/daisy-chains/daisy-chains-agentic-testing/"
+        icon="MD"
+        label="Daisy Chains Blog (Markdown)"
+        meta="companion article"
+      />
+    </SidebarGroup>
+  </Fragment>
+
+  <Hero
+    title="Daisy Chains"
+    subtitle="Declarative flow specs that agents can test — borrowed from hardware, built for event-driven systems"
+    date="Lenora AI workflows · march 2026"
+    codeComment="// inject(boundary[0]) → observe(boundary[1..n]) → verdict: pass | break_at(k)"
+  />
+
+  <div class="container">
+    <div class="timeline">
+
+      <!-- ═══════════════ 1 — The Problem ═══════════════ -->
+      <div class="section">
+        <div class="section-number">1</div>
+        <div class="card">
+          <h2>The Testing Gap</h2>
+          <div class="tagline">Five approaches to testing flows — none of them let you say "here is the flow, test it"</div>
+          <div class="stat-grid">
+            <div class="stat-box">
+              <div class="big-num">5</div>
+              <div class="big-label">existing approaches<br>unit · integration · E2E · sagas · tracing</div>
+            </div>
+            <div class="stat-box">
+              <div class="big-num">0</div>
+              <div class="big-label">that declare expected flows<br>and detect breaks passively</div>
+            </div>
+          </div>
+          <div class="description">
+            Unit tests verify isolated services. Integration tests check pairs. E2E tests drive a browser and pray. Sagas add an orchestrator that every participant implicitly depends on — and it on them. Distributed traces instrument every service to emit spans after the fact. None of these let you declare a flow and test it as one thing.
+          </div>
+          <ul class="risk-list">
+            <li>Unit tests say nothing about whether services are wired together correctly</li>
+            <li>Integration tests only cover the pairs you thought to test</li>
+            <li>E2E tests are slow, brittle, and their timeouts tell you nothing about <em>where</em> the break is</li>
+            <li>Sagas introduce load-bearing infrastructure that must itself be tested</li>
+            <li>Traces are diagnostic, not declarative — they tell you what happened, not what <em>should</em> have happened</li>
+          </ul>
+          <div class="key-insight">
+            <strong>Insight:</strong> Contract tests (Pact) verify pairs of services, not flows. They test individual connections — the equivalent of testing each solder joint with a multimeter. Thorough but unscalable (Lehvä et al. 2019).
+          </div>
+          <div class="refs-title">References</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Lehvä, J. et al. (2019)</span> — <span class="ref-title">"Consumer-Driven Contract Tests for Microservices: A Case Study"</span> Springer. <a href="https://scholar.google.com/scholar?q=Lehva+Makitalo+Mikkonen+2019+consumer+driven+contract" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Megargel, A. &amp; Poskitt, C.M. (2021)</span> — <span class="ref-title">"Microservices Orchestration vs. Choreography: A Decision Framework"</span> IEEE ICCCN. <a href="https://scholar.google.com/scholar?q=Megargel+Poskitt+2021+orchestration+choreography" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Daraghmi, E. et al. (2022)</span> — <span class="ref-title">"Enhancing Saga Pattern for Distributed Transactions"</span> Applied Sciences, MDPI. <a href="https://scholar.google.com/scholar?q=Daraghmi+2022+saga+pattern+distributed" target="_blank">Scholar</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 2 — The Hardware Precedent ═══════════════ -->
+      <div class="section">
+        <div class="section-number">2</div>
+        <div class="card">
+          <h2>The Hardware Precedent</h2>
+          <div class="tagline">IEEE 1149.1 solved this in 1990 — inject at one boundary, observe at every other</div>
+          <div class="cog-grid">
+            <div class="cog-card">
+              <div class="cog-num">1990</div>
+              <div class="cog-label">IEEE 1149.1 ratified</div>
+              <div class="cog-ref"><a href="https://scholar.google.com/scholar?q=IEEE+1149.1+boundary+scan+1990" target="_blank">JTAG Standard</a></div>
+            </div>
+            <div class="cog-card">
+              <div class="cog-num">0</div>
+              <div class="cog-label">internal probes required</div>
+              <div class="cog-ref"><a href="https://scholar.google.com/scholar?q=Wagner+1987+interconnect+testing+boundary+scan" target="_blank">Wagner (1987)</a></div>
+            </div>
+            <div class="cog-card">
+              <div class="cog-num">All</div>
+              <div class="cog-label">chips tested in one serial chain — no per-chip probe</div>
+              <div class="cog-ref"><a href="https://scholar.google.com/scholar?q=Parker+2003+defect+coverage+boundary+scan" target="_blank">Parker (2003)</a></div>
+            </div>
+          </div>
+          <div class="description">
+            JTAG boundary scan doesn't test the internals of each chip. It injects a known pattern at the boundary of one chip, observes what arrives at the boundary of the next, and checks if the chain is intact. The chips are black boxes. The connections are the test surface. Scan chains daisy-chain boundary scan cells across multiple chips — distributed verification with no per-chip instrumentation.
+          </div>
+          <div class="key-insight">
+            <strong>Insight:</strong> Boundary scan defect coverage depends on the fault model, not the chip internals. The test surface is the interconnection, not the implementation. This principle translates directly to bounded contexts (Parker 2003).
+          </div>
+          <div class="refs-title">References</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-std">Std</span> <span class="ref-authors">IEEE (1990)</span> — <span class="ref-title">"IEEE Std 1149.1-1990: Standard Test Access Port and Boundary-Scan Architecture"</span> <a href="https://scholar.google.com/scholar?q=IEEE+1149.1+boundary+scan+standard+1990" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Wagner, P.T. (1987)</span> — <span class="ref-title">"Interconnect Testing with Boundary Scan"</span> IEEE International Test Conference. <a href="https://scholar.google.com/scholar?q=Wagner+1987+interconnect+testing+boundary+scan" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Parker, K.P. (2003)</span> — <span class="ref-title">"Defect Coverage of Boundary-Scan Tests"</span> International Test Conference, IEEE. <a href="https://scholar.google.com/scholar?q=Parker+2003+defect+coverage+boundary+scan" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Cheng, K.T. &amp; Krstic, A. (1999)</span> — <span class="ref-title">"Current Directions in Automatic Test-Pattern Generation"</span> IEEE Computer. <a href="https://scholar.google.com/scholar?q=Cheng+Krstic+1999+automatic+test+pattern+generation" target="_blank">Scholar</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 3 — What a Daisy Chain Is ═══════════════ -->
+      <div class="section">
+        <div class="section-number">3</div>
+        <div class="card">
+          <h2>The Daisy Chain Spec <span class="badge-proposal">Proposal</span></h2>
+          <div class="tagline">A declared description of an expected flow across bounded contexts</div>
+
+          <div class="dropdown-section">
+            <div class="dropdown-toggle" onclick="toggleDropdown(this)">
+              <span class="dd-arrow">&#9654;</span>
+              <span class="dd-label">Chain examples by domain</span>
+              <span class="dd-hint">3 examples</span>
+            </div>
+            <div class="dropdown-body">
+              <div class="dd-example">
+                <div class="dd-example-title">E-Commerce: Place Order</div>
+                <div class="dd-example-desc">Full purchase flow — browser click to confirmation email, crossing HTTP → NATS → SMTP.</div>
+                <pre>chain: place-order
+links:
+  - boundary: storefront-ui
+    signal:   POST /api/orders
+    role:     injection-point
+    transport: http
+
+  - boundary: order-service
+    signal:   order.validated
+    expect_within: 200ms
+    transport: nats
+
+  - boundary: inventory-service
+    signal:   inventory.reserved
+    expect_within: 500ms
+    transport: nats
+
+  - boundary: payment-service
+    signal:   payment.charged
+    expect_within: 2000ms
+    transport: nats
+
+  - boundary: notification-service
+    signal:   confirmation.sent
+    expect_within: 3000ms
+    transport: smtp</pre>
+              </div>
+              <div class="dd-example">
+                <div class="dd-example-title">Fintech: KYC Verification</div>
+                <div class="dd-example-desc">Identity check flow — form submission triggers document scan, risk scoring, and compliance approval across three bounded contexts.</div>
+                <pre>chain: kyc-verification
+links:
+  - boundary: onboarding-ui
+    signal:   POST /api/kyc/submit
+    role:     injection-point
+    transport: http
+
+  - boundary: document-service
+    signal:   document.scanned
+    expect_within: 5000ms
+    transport: nats
+    payload_match:
+      status: [valid, invalid]
+
+  - boundary: risk-engine
+    signal:   risk.scored
+    expect_within: 3000ms
+    transport: nats
+    payload_match:
+      score_range: [0, 100]
+
+  - boundary: compliance-service
+    signal:   kyc.decision
+    expect_within: 1000ms
+    transport: nats
+    payload_match:
+      decision: [approved, rejected, manual_review]
+
+  - boundary: notification-service
+    signal:   kyc.result.sent
+    expect_within: 2000ms
+    transport: smtp</pre>
+              </div>
+              <div class="dd-example">
+                <div class="dd-example-title">IoT: Sensor Alert Pipeline</div>
+                <div class="dd-example-desc">Sensor reading triggers anomaly detection, alert routing, and operator notification — all within strict SLA windows.</div>
+                <pre>chain: sensor-alert
+links:
+  - boundary: edge-gateway
+    signal:   sensor.reading.ingested
+    role:     injection-point
+    transport: mqtt
+
+  - boundary: anomaly-detector
+    signal:   anomaly.detected
+    expect_within: 500ms
+    transport: nats
+    payload_match:
+      severity: [low, medium, high, critical]
+
+  - boundary: alert-router
+    signal:   alert.routed
+    expect_within: 200ms
+    transport: nats
+
+  - boundary: operator-dashboard
+    signal:   alert.displayed
+    expect_within: 1000ms
+    transport: websocket
+
+  - boundary: escalation-service
+    signal:   escalation.logged
+    expect_within: 3000ms
+    transport: nats
+    condition: severity == critical</pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="pattern-row">
+            <div class="pr-left">
+              <h3>Transport-Agnostic</h3>
+              <p>The chain definition names boundaries and signals — not protocols. HTTP, NATS, SMTP are adapters. The chain is the port.</p>
+            </div>
+            <div class="pr-right">
+              <pre><span class="fn">chain:</span> place-order
+<span class="fn">links:</span>
+  <span class="cm">- boundary:</span> storefront-ui
+    <span class="cm">signal:</span>   POST /api/orders
+    <span class="cm">transport:</span> <span class="bad">http</span>
+  <span class="cm">- boundary:</span> order-service
+    <span class="cm">signal:</span>   order.validated
+    <span class="cm">transport:</span> <span class="bad">nats</span></pre>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pr-left">
+              <h3>Timing Contracts</h3>
+              <p>Each link declares a time window. The chain doesn't prescribe how — it asserts when. Miss the window, and the observer knows exactly which link broke.</p>
+            </div>
+            <div class="pr-right">
+              <pre><span class="cm">- boundary:</span> inventory-service
+  <span class="cm">signal:</span>   inventory.reserved
+  <span class="fn">expect_within:</span> 500ms
+
+<span class="cm">- boundary:</span> payment-service
+  <span class="cm">signal:</span>   payment.charged
+  <span class="fn">expect_within:</span> 2000ms</pre>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pr-left">
+              <h3>Boundary Promise</h3>
+              <p>Every link makes one promise: "If I receive X at my boundary, I will produce Y at my boundary within T." No upstream knowledge. No downstream coupling.</p>
+            </div>
+            <div class="pr-right">
+              <pre><span class="cm">// each link is a contract:</span>
+<span class="fn">receive(X)</span> → <span class="fn">produce(Y)</span> ≤ T
+
+<span class="cm">// chained:</span>
+A→B→C→D→E
+<span class="bad">// one artifact, three functions:</span>
+<span class="bad">// spec · test · monitor</span></pre>
+            </div>
+          </div>
+          <div class="key-insight">
+            <strong>Insight:</strong> Schema-guided testing of message-oriented systems shows that matching temporal specifications to message schemas enables fault detection at the boundary level, not inside the service (Santos et al. 2022).
+          </div>
+          <div class="refs-title">References</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Santos, A. et al. (2022)</span> — <span class="ref-title">"Schema-Guided Testing of Message-Oriented Systems"</span> INESTEC. <a href="https://scholar.google.com/scholar?q=Santos+Cunha+Macedo+2022+schema+guided+testing+message" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Wu, C.F. et al. (2022)</span> — <span class="ref-title">"Testing for Event-Driven Microservices Based on Consumer-Driven Contracts and State Models"</span> APSEC, IEEE. <a href="https://scholar.google.com/scholar?q=Wu+Ma+Shau+2022+consumer+driven+event+driven" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Hatcliff, J. et al. (2012)</span> — <span class="ref-title">"Behavioral Interface Specification Languages"</span> ACM Computing Surveys. <a href="https://scholar.google.com/scholar?q=Hatcliff+Leavens+2012+behavioral+interface+specification" target="_blank">Scholar</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 4 — Chains vs. Sagas vs. Traces ═══════════════ -->
+      <div class="section">
+        <div class="section-number">4</div>
+        <div class="card">
+          <h2>Chains vs. Sagas vs. Traces</h2>
+          <div class="tagline">Three different tools solving three different problems — but only one is passive</div>
+          <div class="compare-grid">
+            <div class="compare-panel">
+              <div class="cp-label">Pattern A</div>
+              <h3>Sagas</h3>
+              <div class="cp-tagline">Run the flow — orchestrate and compensate</div>
+              <ul class="cp-list">
+                <li>Orchestrator is <em>inside</em> the flow</li>
+                <li>Every participant implicitly depends on it, and it on them</li>
+                <li>Can't test the flow without running the saga</li>
+                <li>Failure = compensating transactions + new failure modes</li>
+              </ul>
+              <div class="cp-question">"Step 1, do this. Step 2, do that. Step 3 failed — compensate."</div>
+            </div>
+            <div class="compare-panel">
+              <div class="cp-label">Pattern B</div>
+              <h3>Distributed Traces</h3>
+              <div class="cp-tagline">Describe what happened — after the fact</div>
+              <ul class="cp-list">
+                <li>Bottom-up: each service emits spans</li>
+                <li>Requires instrumentation inside every service</li>
+                <li>Descriptive, not prescriptive</li>
+                <li>Helps debug after failure, not detect during</li>
+              </ul>
+              <div class="cp-question">"Here's the assembled trace — does it look right to you?"</div>
+            </div>
+          </div>
+          <div class="key-insight" style="border-left-color: #1a1a1a;">
+            <strong>Daisy Chains:</strong> Top-down. Declare what the flow <em>should</em> look like. Observe passively. If reality diverges from the spec, the divergence is the finding. Zero coupling to any participant's internals. The chain is <em>outside</em> the flow.
+          </div>
+          <div class="refs-title">References</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Kløvedal, V.S. et al. (2026)</span> — <span class="ref-title">"Accompanist: A Runtime for Resilient Choreographic Programming"</span> arXiv:2603.20942. <a href="https://arxiv.org/abs/2603.20942" target="_blank">PDF</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Li, B. et al. (2022)</span> — <span class="ref-title">"Enjoy Your Observability: An Industrial Survey of Microservice Tracing"</span> Empirical SE, Springer. <a href="https://scholar.google.com/scholar?q=Li+Peng+2022+observability+microservice+tracing" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Hierons, R.M. (2011)</span> — <span class="ref-title">"Oracles for Distributed Testing"</span> IEEE TSE. <a href="https://scholar.google.com/scholar?q=Hierons+2011+oracles+distributed+testing" target="_blank">Scholar</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 5 — Runtime Verification ═══════════════ -->
+      <div class="section">
+        <div class="section-number">5</div>
+        <div class="card">
+          <h2>Passive Observation as Runtime Verification</h2>
+          <div class="tagline">Declare expected behavior → observe at boundaries → alert on divergence</div>
+          <div class="description">
+            Runtime verification is the formal method that most closely matches daisy chain observation. You write a specification of expected behavior. A monitor watches system execution. When the observed trace violates the spec, the monitor reports. The key difference: traditional RV instruments each component. Daisy chains observe only at boundaries — the scan chain controller watches I/O pins, not internal registers.
+          </div>
+          <div class="stat-grid">
+            <div class="stat-box">
+              <div class="big-num">Spec</div>
+              <div class="big-label">declare expected signals<br>at each boundary</div>
+            </div>
+            <div class="stat-box">
+              <div class="big-num">Observe</div>
+              <div class="big-label">multi-transport listener<br>NATS · HTTP · SMTP</div>
+            </div>
+          </div>
+          <div class="key-insight">
+            <strong>Insight:</strong> Decentralized runtime verification distributes monitors across system nodes. Daisy chains take this further: monitors sit at boundaries only, reducing coupling from O(services) to O(boundaries) (Francalanza et al. 2018; Mostafa &amp; Bonakdarpour 2015).
+          </div>
+          <div class="refs-title">References</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Francalanza, A. et al. (2018)</span> — <span class="ref-title">"Runtime Verification for Decentralised and Distributed Systems"</span> Lectures on RV, Springer. <a href="https://scholar.google.com/scholar?q=Francalanza+Perez+Sanchez+2018+runtime+verification+decentralised" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Mostafa, M. &amp; Bonakdarpour, B. (2015)</span> — <span class="ref-title">"Decentralized Runtime Verification of LTL Specifications in Distributed Systems"</span> IEEE TPDS. <a href="https://scholar.google.com/scholar?q=Mostafa+Bonakdarpour+2015+decentralized+runtime+verification+LTL" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Karimi, M. et al. (2026)</span> — <span class="ref-title">"Sharing the Secret: Distributed Privacy-Preserving Monitoring"</span> arXiv:2603.20107. <a href="https://arxiv.org/abs/2603.20107" target="_blank">PDF</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Lima, B. et al. (2020)</span> — <span class="ref-title">"Local Observability and Controllability in Distributed Testing with Time Constraints"</span> IEEE Access. <a href="https://scholar.google.com/scholar?q=Lima+Faria+Hierons+2020+observability+controllability+distributed+testing" target="_blank">Scholar</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 6 — Agentic Testing ═══════════════ -->
+      <div class="section">
+        <div class="section-number">6</div>
+        <div class="card">
+          <h2>Agentic Chain Testing</h2>
+          <div class="tagline">Machine-readable specs + autonomous agents = continuous boundary scan</div>
+          <div class="description">
+            A daisy chain is a machine-readable spec. An agent — not a human — picks it up and operates autonomously: inject test vectors, observe boundaries, detect breaks, run continuously against production, and eventually generate new chain specs from observed traffic.
+          </div>
+          <div class="terminal-grid">
+            <div class="terminal">
+              <div class="terminal-bar"><span class="terminal-dot"></span> phase 1: functional</div>
+              <div class="terminal-body">
+                <span class="tl">&gt; playwright → POST /api/orders</span>
+                <span class="tl">&gt; chain observer: passive</span>
+                <span class="tl pass">&gt; ✓ order.validated      87ms</span>
+                <span class="tl pass">&gt; ✓ inventory.reserved  234ms</span>
+                <span class="tl pass">&gt; ✓ payment.charged    1102ms</span>
+                <span class="tl pass">&gt; ✓ confirmation.sent  2340ms</span>
+              </div>
+            </div>
+            <div class="terminal">
+              <div class="terminal-bar"><span class="terminal-dot"></span> phase 2: boundary scan</div>
+              <div class="terminal-body">
+                <span class="tl">&gt; inject → order-service boundary</span>
+                <span class="tl">&gt; no browser, no UI</span>
+                <span class="tl pass">&gt; ✓ inventory.reserved  198ms</span>
+                <span class="tl fail">&gt; ✗ payment.charged    TIMEOUT</span>
+                <span class="tl skip">&gt; - confirmation.sent  SKIPPED</span>
+                <span class="tl warn">&gt; BREAK: inventory → payment</span>
+              </div>
+            </div>
+            <div class="terminal">
+              <div class="terminal-bar"><span class="terminal-dot"></span> phase 3: ATPG</div>
+              <div class="terminal-body">
+                <span class="tl">&gt; observing production traffic...</span>
+                <span class="tl">&gt; pattern detected: 14,291×</span>
+                <span class="tl">&gt; inferred chain: refund-flow</span>
+                <span class="tl">&gt; 4 links · 3 transports</span>
+                <span class="tl warn">&gt; → proposing for review</span>
+                <span class="tl">&gt; coverage: +1 chain auto-gen</span>
+              </div>
+            </div>
+          </div>
+          <div class="key-insight">
+            <strong>Insight:</strong> Multi-agent feedback-driven loops can evolve software testing into autonomous, continuously learning quality assurance ecosystems. Daisy chains give these agents a declarative surface to operate on — not code, not logs, but specs (Nagvi et al. 2026).
+          </div>
+          <div class="refs-title">References</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Nagvi, S. et al. (2026)</span> — <span class="ref-title">"The Rise of Agentic Testing: Multi-Agent Systems for Robust Software QA"</span> arXiv:2601.02454. <a href="https://arxiv.org/abs/2601.02454" target="_blank">PDF</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Martin, G. &amp; Olszewska, J. (2025)</span> — <span class="ref-title">"Automation Testing Framework for Reliable Autonomous Agentic AI"</span> IEEE. <a href="https://scholar.google.com/scholar?q=Martin+Olszewska+2025+automation+testing+autonomous+agentic" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Cheng, K.T. &amp; Krstic, A. (1999)</span> — <span class="ref-title">"Current Directions in Automatic Test-Pattern Generation"</span> IEEE Computer — ATPG foundations. <a href="https://scholar.google.com/scholar?q=Cheng+Krstic+1999+automatic+test+pattern+generation" target="_blank">Scholar</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 7 — Start Small ═══════════════ -->
+      <div class="section">
+        <div class="section-number">7</div>
+        <div class="card">
+          <h2>Start Small</h2>
+          <div class="tagline">Five steps from YAML to continuous boundary scan</div>
+          <div class="rec-row">
+            <div class="rec-num">01</div>
+            <div class="rec-text"><strong>Declare one chain.</strong> Pick your most critical flow. Write boundaries, signals, timing as YAML. Don't build anything yet — the act of declaring it will surface ambiguities your team has been living with.</div>
+          </div>
+          <div class="rec-row">
+            <div class="rec-num">02</div>
+            <div class="rec-text"><strong>Add a passive observer.</strong> Subscribe to NATS subjects, HTTP endpoints, whatever your chain crosses. Log whether the expected signals appear in order. No enforcement — just visibility.</div>
+          </div>
+          <div class="rec-row">
+            <div class="rec-num">03</div>
+            <div class="rec-text"><strong>Add timing assertions.</strong> Turn the observer into a test. Run it in CI. When a signal doesn't appear within its window, fail the build. You now have a chain runner.</div>
+          </div>
+          <div class="rec-row">
+            <div class="rec-num">04</div>
+            <div class="rec-text"><strong>Add an agent.</strong> Let it inject test vectors, run chains on a schedule, report breaks. Now you have continuous boundary scan — the software equivalent of JTAG running at board power-on.</div>
+          </div>
+          <div class="rec-row">
+            <div class="rec-num">05</div>
+            <div class="rec-text"><strong>Let the agent generate chains.</strong> Observe production traffic, infer chain specs, propose for human review. Your test coverage grows from observation, not from writing tests. This is ATPG for event-driven systems.</div>
+          </div>
+          <div class="key-insight" style="margin-top: 18px;">
+            <strong>Insight:</strong> Model-based testing shows that dynamic oracles checking global properties outperform static test suites for distributed systems. A chain spec is exactly such an oracle — it defines the expected global property of a flow (Sünyd et al. 2014; Hierons 2011).
+          </div>
+          <div class="refs-title">References</div>
+          <ul class="ref-list">
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Sünyd, G. et al. (2014)</span> — <span class="ref-title">"Model-Based Testing of Global Properties on Large-Scale Distributed Systems"</span> Information &amp; Software Tech., Elsevier. <a href="https://scholar.google.com/scholar?q=Sunyd+Almeida+2014+model+based+testing+global+properties+distributed" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Hierons, R.M. (2011)</span> — <span class="ref-title">"Oracles for Distributed Testing"</span> IEEE TSE — oracle checks observed trace against specification. <a href="https://scholar.google.com/scholar?q=Hierons+2011+oracles+distributed+testing" target="_blank">Scholar</a></li>
+            <li><span class="ref-tag tag-paper">Paper</span> <span class="ref-authors">Ferme, V. &amp; Pautasso, C. (2018)</span> — <span class="ref-title">"A Declarative Approach for Performance Tests in Continuous Software Development"</span> ACM/SPEC. <a href="https://scholar.google.com/scholar?q=Ferme+Pautasso+2018+declarative+performance+tests" target="_blank">Scholar</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════ Takeaway ═══════════════ -->
+      <div class="section">
+        <div class="section-number" style="background:#555;">&#10003;</div>
+        <div class="takeaway">
+          <div class="eyebrow">The Takeaway</div>
+          <h2>Declare the chain.<br><span>The spec is the test.<br>The test is the monitor.</span></h2>
+          <div class="ta-sub">
+            Stop testing internals — test interconnections.
+            Stop orchestrating flows — declare them.
+            Stop instrumenting services — observe boundaries.
+            Hardware solved this in 1990. It's time software caught up.
+          </div>
+          <div style="margin-top:24px;">
+            <a href="/daisy-chains/daisy-chains-landscape/" style="display:inline-block;padding:10px 24px;background:#fff;color:#1a1a1a;border-radius:100px;font-size:0.82rem;font-weight:700;text-decoration:none;letter-spacing:0.02em;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">View Testing Landscape Comparison →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ RFC Comment ═══════════════ -->
+      <div style="max-width:900px;margin:0 auto;padding:32px 24px 0;">
+        <div class="rfc-block" style="background:#f8f8f8;border:1px dashed #ccc;border-radius:12px;padding:28px 30px;text-align:center;">
+          <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:#999;font-weight:600;margin-bottom:8px;">RFC — Request for Comments</div>
+          <div class="rfc-title" style="font-size:1rem;font-weight:700;color:#1a1a1a;margin-bottom:6px;">This is a spec proposal, not written in stone.</div>
+          <div class="rfc-desc" style="font-size:0.88rem;color:#666;line-height:1.6;margin-bottom:14px;">
+            We want your feedback — corrections, concerns, alternatives, endorsements. Everything is open for discussion.
+          </div>
+          <div style="font-size:0.85rem;color:#444;">
+            Send comments to<br>
+            <a href="mailto:lenora.pondigo+dc-rfc@gmail.com" style="color:#1a1a1a;font-weight:600;border-bottom:1px solid #ccc;">lenora.pondigo+dc-rfc@gmail.com</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <Footer>
+    Lenora AI workflows · daisy chains · march 2026<br>
+    18 references · 7 sections · <a href="/daisy-chains/daisy-chains-landscape/" style="color:inherit;border-bottom:1px solid #ddd;">landscape comparison</a> · companion to Skimming &amp; Scanning
+  </Footer>
+
+  <Fragment slot="page-scripts">
+    <script is:inline>
+      function toggleDropdown(el) {
+        el.classList.toggle('open');
+        el.nextElementSibling.classList.toggle('open');
+      }
+    </script>
+  </Fragment>
+</PaperLayout>

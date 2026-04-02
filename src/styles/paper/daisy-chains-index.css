@@ -1,0 +1,27 @@
+/* ── Dropdown toggle for details/summary ── */
+details { margin-bottom: 14px; }
+details summary {
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  padding: 8px 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+details summary::-webkit-details-marker { display: none; }
+details summary::before {
+  content: '\25B6';
+  font-size: 0.65rem;
+  color: #999;
+  transition: transform 0.2s;
+}
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+/* ── Dark Mode ── */
+body.dark details summary { color: #f0f0f0; }
+body.dark details summary::before { color: #666; }

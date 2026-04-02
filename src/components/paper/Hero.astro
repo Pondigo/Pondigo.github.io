@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  date: string;
+  codeComment?: string;
+}
+
+const { title, subtitle, date, codeComment } = Astro.props;
+---
+
+<div class="hero">
+  {codeComment && <p class="code-comment">{codeComment}</p>}
+  <h1>{title}</h1>
+  <div class="subtitle">{subtitle}</div>
+  <div class="date">{date}</div>
+</div>

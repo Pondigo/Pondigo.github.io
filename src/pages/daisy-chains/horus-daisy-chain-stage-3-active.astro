@@ -1,0 +1,326 @@
+---
+import PaperLayout from '../../layouts/PaperLayout.astro';
+import SidebarGroup from '../../components/paper/SidebarGroup.astro';
+import SidebarLink from '../../components/paper/SidebarLink.astro';
+import Hero from '../../components/paper/Hero.astro';
+import Footer from '../../components/paper/Footer.astro';
+import '../../styles/paper/global.css';
+import '../../styles/paper/article.css';
+---
+
+<PaperLayout title="Stage 3: Active - Horus Daisy Chain">
+  <Fragment slot="sidebar-content">
+    <SidebarGroup title="Daisy Chains Specs">
+      <SidebarLink href="/daisy-chains/" icon="∞" label="Main Spec" meta="Daisy Chains" />
+      <SidebarLink href="/daisy-chains/daisy-chains-landscape/" icon="▬" label="Landscape" meta="System Overview" />
+      <SidebarLink href="/daisy-chains/daisy-chains-agentic-testing/" icon="◈" label="Agentic Testing" meta="Agent Framework" />
+      <SidebarLink href="/daisy-chains/daisy-chains-research-companion/" icon="§" label="Research Companion" meta="References & Reading" />
+    </SidebarGroup>
+    <SidebarGroup title="Implementation Specs">
+      <SidebarLink href="/daisy-chains/daisy-chain-matcher-engine-spec/" icon="⚙" label="Matcher Engine" meta="DCME" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-1-passive/" icon="1" label="Stage 1: Passive" meta="Horus Implementation" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-2-reactive/" icon="2" label="Stage 2: Reactive" meta="Horus Implementation" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-3-active/" icon="3" label="Stage 3: Active" meta="Horus Implementation (This Page)" />
+    </SidebarGroup>
+  </Fragment>
+
+  <Hero
+    title="Stage 3: Active"
+    subtitle="Inject. Observe. Verify."
+    date="Lenora AI workflows · march 2026"
+    codeComment="// Horus Daisy Chain — Stage 3"
+  />
+
+  <div class="container">
+    <div class="card article">
+      <h2>Origin</h2>
+      <p>See <a href="/daisy-chains/horus-daisy-chain-stage-1-passive/#origin">stage 1 — passive</a> for the full hardware-to-DDD mapping. Stage 3 corresponds to <strong>point 8: progressive test extraction</strong> — the arc from functional test (Playwright E2E) → boundary scan vectors (direct injection) → ATPG (auto-generated specs from observed production traffic).</p>
+
+      <hr>
+
+      <h2>What is stage 3</h2>
+      <p>Stage 1 watches passively. Stage 2 reacts to triggers and classifies outcomes. Stage 3 <strong>injects the trigger itself</strong> and verifies the system produces the expected outcome.</p>
+      <p>This is the equivalent of applying test vectors to a hardware scan chain — you control the input, you know the expected output, and any deviation is a fault.</p>
+      <p><strong>Requires stage 2.</strong> Active specs reuse reactive spec structure (trigger, outcomes, known_errors) but add an <code>inject</code> block and an <code>expected_outcome</code>.</p>
+
+      <hr>
+
+      <h2>Spec structure</h2>
+      <pre>specs:
+  &lt;name&gt;:
+    mode: active
+    inject:
+      via: &lt;adapter&gt;
+      method: &lt;HTTP method&gt;
+      url: &lt;target URL&gt;
+      body: &#123; ... &#125;
+    timeout: &lt;duration&gt;
+    expected_outcome: &lt;outcome_name&gt;
+    outcomes:
+      &lt;outcome_name&gt;:
+        - service: ...
+          signal: ...
+      known_errors:
+        &lt;error_name&gt;:
+          - ...
+    unknown_path: alert</pre>
+
+      <ul>
+        <li><strong><code>inject</code></strong> — DCME sends this signal to start the chain. This is the test vector.</li>
+        <li><strong><code>expected_outcome</code></strong> — which outcome constitutes a "pass." If the system follows a different outcome, the test fails with a classification (not just a timeout).</li>
+        <li><strong><code>outcomes</code></strong> and <strong><code>known_errors</code></strong> — identical to stage 2. The reactive matching engine runs the same way.</li>
+      </ul>
+
+      <hr>
+
+      <h2>Progressive testing</h2>
+      <p>Three phases, mirroring hardware's functional test → boundary scan extraction → ATPG:</p>
+
+      <h3>Phase 1 — Playwright as test vector injector</h3>
+      <p>Playwright drives the browser. DCME observes the full chain end-to-end. The Playwright test is minimal — click the button, DCME does all the verification.</p>
+      <pre>specs:
+  example_e2e:
+    mode: active
+    inject:
+      via: playwright
+      script: tests/e2e/submit-action.spec.ts
+    timeout: 15s
+    expected_outcome: completed
+    outcomes:
+      completed:
+        - service: processor
+          signal:
+            direction: emit
+            via: nats
+            match:
+              subject: "results.completed.*"
+      rejected:
+        - service: processor
+          signal:
+            direction: emit
+            via: nats
+            match:
+              subject: "requests.rejected.*"
+    unknown_path: alert</pre>
+
+      <p>No assertions in Playwright. Playwright is dumb — it clicks. DCME is smart — it verifies.</p>
+
+      <h3>Phase 2 — Direct injection</h3>
+      <p>Strip Playwright. DCME injects the test vector directly via HTTP or NATS publish. No browser, no UI, no Playwright dependency.</p>
+      <pre>specs:
+  example_direct_http:
+    mode: active
+    inject:
+      via: http
+      method: POST
+      url: http://$&#123;ENV&#125;.example.io/api/resource
+      headers:
+        Content-Type: application/json
+        X-Test-Vector: "true"
+      body:
+        type: "test"
+        correlationId: "TEST-$&#123;TIMESTAMP&#125;"
+    timeout: 10s
+    expected_outcome: completed
+    outcomes:
+      completed:
+        - service: processor
+          signal:
+            direction: emit
+            via: nats
+            match:
+              subject: "results.completed.*"
+      rejected:
+        - service: processor
+          signal:
+            direction: emit
+            via: nats
+            match:
+              subject: "requests.rejected.*"
+    unknown_path: alert</pre>
+
+      <p>Can also inject via NATS directly:</p>
+      <pre>specs:
+  example_direct_nats:
+    mode: active
+    inject:
+      via: nats
+      subject: "requests.created.TEST"
+      body:
+        type: RequestCreated
+        correlationId: "TEST-$&#123;TIMESTAMP&#125;"
+    timeout: 10s
+    expected_outcome: completed
+    outcomes:
+      # ... same as above</pre>
+
+      <h3>Phase 3 — ATPG (future)</h3>
+      <p>Automatic Test Pattern Generation. DCME observes production traffic (stage 1 + 2) and auto-generates active test specs from observed patterns.</p>
+      <pre>observed: requests.created.* → results.completed.* (8ms) → notifications.sent.* (12ms)
+         correlation: correlationId
+         frequency: 340/hour
+         p95 latency: 92ms
+
+generated spec:
+  example_learned:
+    mode: active
+    inject:
+      via: nats
+      subject: "requests.created.ATPG"
+      body:
+        type: RequestCreated
+        correlationId: "ATPG-$&#123;TIMESTAMP&#125;"
+        # body shape inferred from observed traffic
+    timeout: 500ms  # derived from p95 + margin
+    expected_outcome: completed
+    outcomes:
+      completed:
+        # links auto-generated from observed chain</pre>
+
+      <p>ATPG is the endgame: DCME writes its own tests from watching production.</p>
+
+      <hr>
+
+      <h2>Example: synthetic monitoring</h2>
+      <p>Active specs can run on a schedule for health checking:</p>
+      <pre>specs:
+  health_check:
+    mode: active
+    inject:
+      via: nats
+      subject: "requests.created.HEALTHCHECK"
+      body:
+        type: RequestCreated
+        correlationId: "HEALTH-$&#123;TIMESTAMP&#125;"
+    timeout: 15s
+    expected_outcome: completed
+    schedule: every 5m
+
+    outcomes:
+      completed:
+        - service: processor
+          signal:
+            direction: emit
+            via: nats
+            match:
+              subject: "results.completed.*"
+      known_errors:
+        service_down:
+          - service: processor
+            signal:
+              direction: emit
+              via: nats
+              match:
+                subject: "requests.error.*"
+                body.code: SERVICE_UNAVAILABLE
+    unknown_path: alert</pre>
+
+      <hr>
+
+      <h2>Test result classification</h2>
+      <p>For every active spec execution, DCME produces a result:</p>
+      <table>
+        <tr>
+          <th>Result</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td><strong>pass</strong></td>
+          <td>System followed <code>expected_outcome</code> within timeout</td>
+        </tr>
+        <tr>
+          <td><strong>wrong_outcome</strong></td>
+          <td>Chain completed but followed a different outcome than expected</td>
+        </tr>
+        <tr>
+          <td><strong>known_error</strong></td>
+          <td>Chain followed a <code>known_errors</code> path — expected failure</td>
+        </tr>
+        <tr>
+          <td><strong>chain_break</strong></td>
+          <td>Outcome partially matched — some links fired, then stopped</td>
+        </tr>
+        <tr>
+          <td><strong>unknown_path</strong></td>
+          <td>No outcome matched at all — undefined behavior</td>
+        </tr>
+        <tr>
+          <td><strong>timeout</strong></td>
+          <td>Nothing happened within timeout — system unresponsive</td>
+        </tr>
+        <tr>
+          <td><strong>injection_failed</strong></td>
+          <td>DCME couldn't send the test vector (HTTP error, NATS unreachable)</td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <h2>Relationship to stages 1 and 2</h2>
+      <p>All three stages can run simultaneously:</p>
+      <ul>
+        <li><strong>Stage 1 (passive)</strong> monitors every chain link-by-link in production.</li>
+        <li><strong>Stage 2 (reactive)</strong> classifies real user triggers into outcomes.</li>
+        <li><strong>Stage 3 (active)</strong> injects synthetic triggers and verifies expected outcomes.</li>
+      </ul>
+      <p>Same matching engine, same adapters, same scan cells. The only difference is who initiates the trigger:</p>
+      <table>
+        <tr>
+          <th>Stage</th>
+          <th>Trigger source</th>
+          <th>Question</th>
+        </tr>
+        <tr>
+          <td>1 — passive</td>
+          <td>nobody</td>
+          <td>"Did every link fire in order?"</td>
+        </tr>
+        <tr>
+          <td>2 — reactive</td>
+          <td>real traffic</td>
+          <td>"Given this trigger, which outcome?"</td>
+        </tr>
+        <tr>
+          <td>3 — active</td>
+          <td>DCME injects</td>
+          <td>"If I inject this, do I get the expected outcome?"</td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <h2>v0.2 roadmap</h2>
+
+      <h3>Agent adapter</h3>
+      <p>Claude Code as a chain link for active test specs. Agent can be both an injector (creating test scenarios) and a gate (making decisions within a chain).</p>
+
+      <h3>FIX protocol adapter</h3>
+      <p>FIX session observer and injector for counterparty chain testing (e.g., Bond Port integration).</p>
+
+      <h3>ATPG engine</h3>
+      <p>DCME learns chain specs from observed production traffic and auto-generates active test specs. Derived from stage 1 and 2 observation data.</p>
+
+      <h3>Schedule and CI integration</h3>
+      <p>Active specs runnable on a cron schedule (synthetic monitoring) or triggered from CI/CD pipelines. Test results reported as standard test output (JUnit XML, TAP, etc.).</p>
+    </div>
+  </div>
+
+  <div style="max-width:900px;margin:0 auto;padding:32px 24px 0;">
+    <div class="rfc-block">
+      <div class="rfc-eyebrow">RFC — Request for Comments</div>
+      <div class="rfc-title">This is a spec proposal, not written in stone.</div>
+      <div class="rfc-desc">We want your feedback — corrections, concerns, alternatives, endorsements. Everything is open for discussion.</div>
+      <div class="rfc-links">Send comments to<br><a href="mailto:lenora.pondigo+dc-rfc@gmail.com">lenora.pondigo+dc-rfc@gmail.com</a></div>
+    </div>
+  </div>
+
+  <div class="stage-nav">
+    <a href="/daisy-chains/horus-daisy-chain-stage-2-reactive/"><span style="font-size:1.1rem;">←</span> Stage 2 — Reactive</a>
+    <div class="stage-nav-label">Implementation Specs</div>
+    <a href="/daisy-chains/daisy-chain-matcher-engine-spec/"><span style="font-size:1.1rem;">↺</span> Matcher Engine</a>
+  </div>
+
+  <Footer>
+    Daisy Chains · Stage 3: Active · March 2026 · Lenora AI workflows
+  </Footer>
+</PaperLayout>

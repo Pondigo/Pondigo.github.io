@@ -1,0 +1,79 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="generator" content={Astro.generator}>
+  <title>{title}</title>
+  <slot name="head" />
+</head>
+<body>
+  <button class="sidebar-toggle" id="sidebarToggle">&#9776;</button>
+  <button class="theme-toggle" id="themeToggle">&#9790;</button>
+
+  <div class="sidebar" id="sidebar">
+    <slot name="sidebar-content" />
+  </div>
+
+  <slot />
+
+  <script is:inline>
+    // Theme toggle — unified key across all paper pages
+    const themeToggle = document.getElementById('themeToggle');
+    const THEME_KEY = 'theme';
+
+    function setTheme(isDark) {
+      if (isDark) {
+        document.body.classList.add('dark');
+        themeToggle.innerHTML = '&#9788;';
+      } else {
+        document.body.classList.remove('dark');
+        themeToggle.innerHTML = '&#9790;';
+      }
+      localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+    }
+
+    // Initialize theme
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    if (savedTheme) {
+      setTheme(savedTheme === 'dark');
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark);
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.contains('dark');
+      setTheme(!isDark);
+    });
+
+    // Sidebar toggle
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      sidebarToggle.classList.toggle('open');
+    });
+
+    // Close sidebar when clicking on a link
+    document.querySelectorAll('.sidebar .pdf-link').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        sidebarToggle.classList.remove('open');
+      });
+    });
+  </script>
+
+  <slot name="page-scripts" />
+</body>
+</html>

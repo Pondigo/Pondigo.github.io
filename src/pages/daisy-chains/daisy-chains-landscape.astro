@@ -1,0 +1,1072 @@
+---
+import PaperLayout from '../../layouts/PaperLayout.astro';
+import SidebarGroup from '../../components/paper/SidebarGroup.astro';
+import SidebarLink from '../../components/paper/SidebarLink.astro';
+import Hero from '../../components/paper/Hero.astro';
+import Footer from '../../components/paper/Footer.astro';
+import '../../styles/paper/global.css';
+import '../../styles/paper/timeline.css';
+import '../../styles/paper/shared-widgets.css';
+import '../../styles/paper/daisy-chains-landscape.css';
+---
+
+<PaperLayout title="Daisy Chains — Testing Landscape">
+  <Fragment slot="sidebar-content">
+    <h3>References</h3>
+
+    <SidebarGroup title="Orchestration">
+      <SidebarLink href="https://temporal.io" icon="DOC" label="Temporal" meta="Durable Workflow Orchestration" target="_blank" />
+      <SidebarLink href="https://github.com/conductor-oss/conductor" icon="DOC" label="Netflix Conductor" meta="Microservices Orchestration" target="_blank" />
+      <SidebarLink href="https://airflow.apache.org" icon="DOC" label="Apache Airflow" meta="DAG-Based Workflow" target="_blank" />
+      <SidebarLink href="https://camunda.com/platform/zeebe/" icon="DOC" label="Camunda Zeebe" meta="Event-Driven BPMN" target="_blank" />
+    </SidebarGroup>
+
+    <SidebarGroup title="Contract Testing">
+      <SidebarLink href="https://pact.io" icon="DOC" label="Pact" meta="Consumer-Driven Contract Testing" target="_blank" />
+      <SidebarLink href="https://specmatic.io" icon="DOC" label="Specmatic" meta="Contract-Driven Development" target="_blank" />
+      <SidebarLink href="https://spring.io/projects/spring-cloud-contract" icon="DOC" label="Spring Cloud Contract" meta="JVM Contract Testing" target="_blank" />
+    </SidebarGroup>
+
+    <SidebarGroup title="Event Specifications">
+      <SidebarLink href="https://www.asyncapi.com" icon="STD" label="AsyncAPI 3.1.0" meta="Event Spec Standard" target="_blank" />
+      <SidebarLink href="https://cloudevents.io" icon="STD" label="CloudEvents 1.0" meta="Graduated Project" target="_blank" />
+      <SidebarLink href="https://docs.confluent.io/platform/current/schema-registry/" icon="DOC" label="Confluent Schema Registry" meta="Schema Management" target="_blank" />
+    </SidebarGroup>
+
+    <SidebarGroup title="Observability">
+      <SidebarLink href="https://opentelemetry.io" icon="STD" label="OpenTelemetry" meta="Distributed Tracing" target="_blank" />
+      <SidebarLink href="https://www.jaegertracing.io" icon="DOC" label="Jaeger" meta="Trace Visualization — CNCF" target="_blank" />
+      <SidebarLink href="https://www.honeycomb.io" icon="DOC" label="Honeycomb" meta="Observability SaaS" target="_blank" />
+    </SidebarGroup>
+
+    <SidebarGroup title="Stream Processing">
+      <SidebarLink href="https://nightlies.apache.org/flink/flink-docs-stable/docs/libs/cep/" icon="DOC" label="Flink CEP" meta="Pattern Matching on Streams" target="_blank" />
+      <SidebarLink href="https://ksqldb.io" icon="DOC" label="ksqlDB" meta="SQL Stream Processing" target="_blank" />
+      <SidebarLink href="https://www.espertech.com/esper/" icon="DOC" label="Esper" meta="Embedded CEP Library" target="_blank" />
+    </SidebarGroup>
+
+    <SidebarGroup title="Emerging Tools">
+      <SidebarLink href="https://keploy.io" icon="DOC" label="Keploy" meta="Auto API Test Generation" target="_blank" />
+      <SidebarLink href="https://testcontainers.com" icon="DOC" label="Testcontainers" meta="Container-Based Testing" target="_blank" />
+      <SidebarLink href="https://wiremock.org" icon="DOC" label="WireMock" meta="HTTP Mock Server" target="_blank" />
+    </SidebarGroup>
+
+    <SidebarGroup title="Formal Methods">
+      <SidebarLink href="https://lamport.azurewebsites.net/tla/tla.html" icon="DOC" label="TLA+ Home" meta="Specification Language" target="_blank" />
+      <SidebarLink href="https://scholar.google.com/scholar?q=Lamport+TLA+specifying+systems" icon="BOOK" label="Specifying Systems" meta="TLA+ Reference Book" target="_blank" />
+      <SidebarLink href="https://alloytools.org" icon="DOC" label="Alloy" meta="Relational Modeling Tool" target="_blank" />
+      <SidebarLink href="https://www.scribble.org" icon="DOC" label="Scribble" meta="Session Types Tooling" target="_blank" />
+      <SidebarLink href="https://scholar.google.com/scholar?q=Honda+session+types+language+primitives" icon="PAPER" label="Session Types for Protocols" meta="Multiparty Session Types" target="_blank" />
+      <SidebarLink href="https://scholar.google.com/scholar?q=Havelund+Rosu+runtime+verification" icon="PAPER" label="Runtime Verification" meta="Monitor Synthesis" target="_blank" />
+      <SidebarLink href="https://www.amazon.science/publications/how-amazon-web-services-uses-formal-methods" icon="PAPER" label="How AWS Uses Formal Methods" meta="TLA+ at Amazon Scale" target="_blank" />
+    </SidebarGroup>
+
+    <SidebarGroup title="Standards">
+      <SidebarLink href="https://www.w3.org/TR/trace-context/" icon="STD" label="W3C Trace Context" meta="Distributed Tracing Standard" target="_blank" />
+    </SidebarGroup>
+  </Fragment>
+
+  <Hero
+    title="Testing Landscape"
+    subtitle="How Daisy Chains fits into the testing and observability ecosystem"
+    date="Lenora AI workflows · march 2026"
+    codeComment="// Daisy Chains: Testing Landscape Comparison"
+  />
+
+  <div class="container">
+    <div class="timeline">
+
+      <!-- ═══════════════ 1 — ORCHESTRATION ═══════════════ -->
+      <div class="section">
+        <div class="section-number">1</div>
+        <div class="card">
+          <h2>Orchestration &amp; Workflow Engines</h2>
+          <div class="tagline">Temporal, Conductor, Airflow — tools that control distributed flows. Daisy Chains validates their output.</div>
+
+          <div class="tool-cards">
+            <!-- Temporal -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#6366f1;color:#fff;">T</div>
+                <div>
+                  <div class="tool-name"><a href="https://temporal.io" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Temporal</a></div>
+                  <div class="tool-type">Durable Workflow Orchestration</div>
+                </div>
+              </div>
+              <div class="tool-desc">Open-source orchestration for long-running, fault-tolerant workflows. Built-in event sourcing and execution history. SDKs across Go, Java, Python, TypeScript, PHP, Ruby, C++.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Production-grade durability and fault recovery</li>
+                    <li>Built-in distributed transaction semantics</li>
+                    <li>Rich SDK ecosystem across languages</li>
+                    <li>Complete execution history and replay</li>
+                    <li>Visibility dashboard for monitoring</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Requires Temporal server deployment</li>
+                    <li>Operational overhead for production</li>
+                    <li>Workflows are code, not declarative specs</li>
+                    <li>Cannot externally inject events</li>
+                    <li>No passive flow validation capability</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">🔗</span>
+                <div><strong>Complementary orchestrator.</strong> Temporal is a strong choice for durable workflows. Daisy Chains can validate that Temporal workflows fire events at the right boundaries.</div>
+              </div>
+            </div>
+
+            <!-- Conductor -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#2563eb;color:#fff;">C</div>
+                <div>
+                  <div class="tool-name"><a href="https://github.com/conductor-oss/conductor" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Netflix Conductor</a></div>
+                  <div class="tool-type">Microservices Orchestration</div>
+                </div>
+              </div>
+              <div class="tool-desc">Workflow orchestrator designed for microservice dependencies. JSON-based workflow definitions. Open source with Netflix operational pedigree.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Declarative JSON workflows</li>
+                    <li>Multi-service dependency graphs</li>
+                    <li>Proven at Netflix scale</li>
+                    <li>Community-friendly</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Requires Conductor deployment</li>
+                    <li>Limited event-driven support</li>
+                    <li>No passive observation mode</li>
+                    <li>Smaller ecosystem than Temporal</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">🔗</span>
+                <div><strong>Declarative but coupled.</strong> Conductor's JSON workflows are more declarative than Temporal's code approach. Daisy Chains can monitor Conductor orchestrations.</div>
+              </div>
+            </div>
+
+            <!-- Airflow -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#017cba;color:#fff;">A</div>
+                <div>
+                  <div class="tool-name"><a href="https://airflow.apache.org" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Apache Airflow</a></div>
+                  <div class="tool-type">DAG-Based Workflow Orchestration</div>
+                </div>
+              </div>
+              <div class="tool-desc">DAG-based task scheduler for data pipelines. Primarily batch/scheduled, not event-driven. Python DSL with 30K+ GitHub stars.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Excellent for batch/scheduled flows</li>
+                    <li>Rich Python ecosystem integration</li>
+                    <li>Extensive community and plugins</li>
+                    <li>Native Kubernetes support</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Batch-centric, not event-driven</li>
+                    <li>Heavy operational overhead</li>
+                    <li>DAGs are code, hard to validate externally</li>
+                    <li>No passive observation mode</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">🔗</span>
+                <div><strong>Orthogonal tool.</strong> Airflow is for batch scheduling, not real-time events. If the platform needs background jobs, Airflow handles scheduling while Daisy Chains handles event flows.</div>
+              </div>
+            </div>
+
+            <!-- Zeebe -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#d4623d;color:#fff;">Z</div>
+                <div>
+                  <div class="tool-name"><a href="https://camunda.com/platform/zeebe/" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Camunda Zeebe</a></div>
+                  <div class="tool-type">Event-Driven Process Automation</div>
+                </div>
+              </div>
+              <div class="tool-desc">Cloud-native workflow engine optimized for event-driven processes. BPMN 2.0 notation. Built for high throughput and horizontal scaling.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Designed for event-driven workflows</li>
+                    <li>BPMN 2.0 standard notation</li>
+                    <li>High-throughput, scalable architecture</li>
+                    <li>Decoupled workers and processes</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Requires Zeebe cluster deployment</li>
+                    <li>Operational complexity</li>
+                    <li>BPMN model intrinsic to system</li>
+                    <li>Cannot passively observe external events</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">🔗</span>
+                <div><strong>Complementary if used.</strong> If the team adopts BPMN processes, Daisy Chains validates that external events conform to process expectations.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 2 — CONTRACT TESTING ═══════════════ -->
+      <div class="section">
+        <div class="section-number">2</div>
+        <div class="card">
+          <h2>Contract Testing</h2>
+          <div class="tagline">Pact, Spring Cloud Contract, Specmatic — validate service boundaries. Daisy Chains validates the chain.</div>
+
+          <div class="tool-cards">
+            <!-- Pact -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#15803d;color:#fff;">P</div>
+                <div>
+                  <div class="tool-name"><a href="https://pact.io" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Pact</a></div>
+                  <div class="tool-type">Consumer-Driven Contract Testing</div>
+                </div>
+              </div>
+              <div class="tool-desc">Consumer mocks expected responses; provider verifies. Pact files store contracts. Asymmetric matching (Postel's Law). Pact Broker for centralization. SDKs across Go, Java, JS, Python, Ruby, Rust, .NET, PHP.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Industry standard for contract testing</li>
+                    <li>Language-agnostic with rich SDKs</li>
+                    <li>Consumer-driven approach catches breaking changes</li>
+                    <li>Pact Broker for centralized management</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Binary (A↔B) only — no multi-hop flows</li>
+                    <li>No event ordering or causality</li>
+                    <li>Each pact file isolated</li>
+                    <li>No temporal relationships between events</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict replace">
+                <span class="verdict-icon">✦</span>
+                <div><strong>Use together.</strong> Pact validates individual service boundaries (the "links"). Daisy Chains validates the chain of links. Adopt Pact for bilateral contracts and Daisy Chains for flow-level validation.</div>
+              </div>
+            </div>
+
+            <!-- Spring Cloud Contract -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#0369a1;color:#fff;">S</div>
+                <div>
+                  <div class="tool-name"><a href="https://spring.io/projects/spring-cloud-contract" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Spring Cloud Contract</a></div>
+                  <div class="tool-type">JVM Contract Testing</div>
+                </div>
+              </div>
+              <div class="tool-desc">Provider-first contracts for Spring applications. Groovy/YAML contract definitions. Supports HTTP and message-based interactions.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Deep Spring ecosystem integration</li>
+                    <li>Supports message-based interactions</li>
+                    <li>Auto-generates test stubs</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Spring/JVM-only</li>
+                    <li>Synchronous bias in design</li>
+                    <li>No flow sequencing validation</li>
+                    <li>Cannot handle event correlations</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict irrelevant">
+                <span class="verdict-icon">⊘</span>
+                <div><strong>Not applicable.</strong> The platform is Wails/Go — Spring Cloud Contract is JVM-specific. Use Pact instead for language-agnostic contracts.</div>
+              </div>
+            </div>
+
+            <!-- Specmatic -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#7c3aed;color:#fff;">Sp</div>
+                <div>
+                  <div class="tool-name"><a href="https://specmatic.io" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Specmatic</a></div>
+                  <div class="tool-type">Contract-Driven Development</div>
+                </div>
+              </div>
+              <div class="tool-desc">Transforms API specs (OpenAPI, AsyncAPI, GraphQL, gRPC) into contracts. No-code AI approach. Kotlin-based, distributed via Maven/Docker/CLI.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Multi-protocol: REST, GraphQL, gRPC, messages</li>
+                    <li>AsyncAPI support for event contracts</li>
+                    <li>Spec-first approach ensures consistency</li>
+                    <li>Auto-generates tests from specs</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Interface-centric, not flow-centric</li>
+                    <li>Cannot validate event causality</li>
+                    <li>Specification-first may miss emergent flows</li>
+                    <li>Smaller community than Pact</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict covers">
+                <span class="verdict-icon">⚡</span>
+                <div><strong>Partially overlaps.</strong> Specmatic's AsyncAPI support handles individual event contracts. Daisy Chains validates event sequences and causality across services.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 3 — EVENT SPECIFICATIONS ═══════════════ -->
+      <div class="section">
+        <div class="section-number">3</div>
+        <div class="card">
+          <h2>Event Specifications</h2>
+          <div class="tagline">AsyncAPI, CloudEvents, Schema Registry — define structure and format. Daisy Chains validates behavior.</div>
+
+          <div class="tool-cards">
+            <!-- AsyncAPI -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#0369a1;color:#fff;">As</div>
+                <div>
+                  <div class="tool-name"><a href="https://www.asyncapi.com" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">AsyncAPI 3.1</a></div>
+                  <div class="tool-type">Event API Specification</div>
+                </div>
+              </div>
+              <div class="tool-desc">Machine-readable async API specs (like OpenAPI for events). Supports MQTT, Kafka, AMQP, WebSocket, NATS. Code generation: Go, Java, Python, TS. Industry sponsors: Kong, Gravitee, Solace, IBM.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Industry standard for documenting async APIs</li>
+                    <li>Multi-protocol bindings (NATS, Kafka, AMQP)</li>
+                    <li>Code generation ecosystem</li>
+                    <li>CLI tools and documentation generation</li>
+                    <li>Schemas enable automated validation</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Purely descriptive — no testing capability</li>
+                    <li>No event sequence or ordering validation</li>
+                    <li>No flow causality understanding</li>
+                    <li>Schema-only, not behavior validation</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict replace">
+                <span class="verdict-icon">✦</span>
+                <div><strong>Adopt as foundation.</strong> AsyncAPI should define event schemas. Daisy Chains consumes AsyncAPI specs to auto-generate flow definitions and validate payloads at boundaries.</div>
+              </div>
+            </div>
+
+            <!-- CloudEvents -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#16a34a;color:#fff;">CE</div>
+                <div>
+                  <div class="tool-name"><a href="https://cloudevents.io" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">CloudEvents 1.0</a></div>
+                  <div class="tool-type">CNCF Event Envelope Standard</div>
+                </div>
+              </div>
+              <div class="tool-desc">Standardized event envelope format. CNCF graduated (Jan 2024). Bindings: HTTP, Kafka, MQTT, AMQP, NATS, WebSocket. SDKs: Go, Java, JS, Python, Ruby, C#, PHP. W3C Trace Context integration.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>CNCF graduated — maximum industry adoption</li>
+                    <li>Protocol-agnostic standard envelope</li>
+                    <li>W3C traceparent for distributed tracing</li>
+                    <li>Wide SDK support including Go</li>
+                    <li>Enables automatic correlation across services</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Format only — no validation or testing</li>
+                    <li>No flow semantics built-in</li>
+                    <li>No causality validation</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict replace">
+                <span class="verdict-icon">✦</span>
+                <div><strong>Adopt as event format.</strong> CloudEvents should be the canonical event envelope in the platform. The <code>traceparent</code> field enables Daisy Chains to correlate events automatically. Critical enabler.</div>
+              </div>
+            </div>
+
+            <!-- Schema Registry -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#b45309;color:#fff;">SR</div>
+                <div>
+                  <div class="tool-name"><a href="https://docs.confluent.io/platform/current/schema-registry/" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Schema Registry</a></div>
+                  <div class="tool-type">Centralized Schema Management</div>
+                </div>
+              </div>
+              <div class="tool-desc">Metadata management layer. RESTful API for storing/retrieving schemas. Compatibility checks (backward, forward, full). Supports Avro, Protobuf, JSON Schema.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Centralized schema evolution management</li>
+                    <li>Compatibility validation across versions</li>
+                    <li>Integration with Kafka ecosystem</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Kafka-centric (less relevant for NATS)</li>
+                    <li>Schema structure only, no behavior</li>
+                    <li>No flow awareness</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">🔗</span>
+                <div><strong>Useful if on Kafka.</strong> Since the platform uses NATS, a Schema Registry is less critical. However, schema validation is important — Daisy Chains can include schema assertions at each boundary.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 4 — OBSERVABILITY & TRACING ═══════════════ -->
+      <div class="section">
+        <div class="section-number">4</div>
+        <div class="card">
+          <h2>Observability &amp; Tracing</h2>
+          <div class="tagline">OpenTelemetry, Jaeger, Honeycomb — diagnostic tools. Daisy Chains is prescriptive validation.</div>
+
+          <div class="tool-cards">
+            <!-- OpenTelemetry -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#4338ca;color:#fff;">OT</div>
+                <div>
+                  <div class="tool-name"><a href="https://opentelemetry.io" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">OpenTelemetry</a></div>
+                  <div class="tool-type">Distributed Tracing &amp; Metrics</div>
+                </div>
+              </div>
+              <div class="tool-desc">CNCF project. Vendor-neutral APIs, SDKs, tools for traces, metrics, logs. Language support: Go, Java, Python, JS, .NET, Rust, C++, Ruby, PHP, Swift, Erlang.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Industry standard for distributed tracing</li>
+                    <li>Vendor-neutral, backend-agnostic</li>
+                    <li>Trace context propagation (W3C standard)</li>
+                    <li>Excellent Go SDK support</li>
+                    <li>Rich exporter and collector ecosystem</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Tells you what happened, not what should happen</li>
+                    <li>No assertion or validation capability</li>
+                    <li>No flow definition language</li>
+                    <li>Requires instrumentation in services</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict replace">
+                <span class="verdict-icon">✦</span>
+                <div><strong>Adopt for trace correlation.</strong> OpenTelemetry provides trace context propagation that Daisy Chains uses for event correlation. OTel collects data; Daisy Chains asserts. Essential infrastructure.</div>
+              </div>
+            </div>
+
+            <!-- Jaeger & Honeycomb -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#be185d;color:#fff;">J+H</div>
+                <div>
+                  <div class="tool-name"><a href="https://www.jaegertracing.io" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Jaeger</a> &amp; <a href="https://www.honeycomb.io" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Honeycomb</a></div>
+                  <div class="tool-type">Trace Visualization &amp; Observability</div>
+                </div>
+              </div>
+              <div class="tool-desc">Jaeger: Open-source trace visualization and latency analysis. CNCF graduated. Honeycomb: SaaS observability with structured logging and high-cardinality querying.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Visualize distributed traces (Jaeger)</li>
+                    <li>High-cardinality debugging (Honeycomb)</li>
+                    <li>Production incident investigation</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Post-hoc analysis, not preventive validation</li>
+                    <li>No concept of "expected flow"</li>
+                    <li>Cannot assert, only display</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">🔗</span>
+                <div><strong>Complementary for debugging.</strong> When a Daisy Chain test fails, Jaeger/Honeycomb help diagnose why. Daisy Chains detects the problem; these tools help find the root cause.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 5 — STREAM PROCESSING ═══════════════ -->
+      <div class="section">
+        <div class="section-number">5</div>
+        <div class="card">
+          <h2>Stream Processing &amp; Complex Event Processing</h2>
+          <div class="tagline">Flink CEP, ksqlDB, Esper — runtime pattern matching. Daisy Chains validates patterns in test.</div>
+
+          <div class="tool-cards">
+            <!-- CEP Engines -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#b45309;color:#fff;">CEP</div>
+                <div>
+                  <div class="tool-name"><a href="https://nightlies.apache.org/flink/flink-docs-stable/docs/libs/cep/" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Flink CEP</a> / <a href="https://ksqldb.io" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">ksqlDB</a> / <a href="https://www.espertech.com/esper/" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Esper</a></div>
+                  <div class="tool-type">Complex Event Processing</div>
+                </div>
+              </div>
+              <div class="tool-desc">Flink CEP: Pattern matching on Flink data streams. ksqlDB: SQL-based stream processing on Kafka topics. Esper: Embedded CEP library with event processing language.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Production-grade pattern matching at scale</li>
+                    <li>Real-time event correlation</li>
+                    <li>SQL-like querying of streams (ksqlDB)</li>
+                    <li>Windowed aggregations and joins</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Operational tooling, not testing tooling</li>
+                    <li>Heavy infrastructure requirements</li>
+                    <li>No declarative test specification</li>
+                    <li>No assertion framework</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">🔗</span>
+                <div><strong>Different purpose.</strong> CEP engines run in production to react to patterns. Daisy Chains runs in test to validate patterns. If the platform uses CEP rules, Daisy Chains validates that rules fire correctly.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 6 — EMERGING TOOLS ═══════════════ -->
+      <div class="section">
+        <div class="section-number">6</div>
+        <div class="card">
+          <h2>Emerging Tools</h2>
+          <div class="tagline">Keploy, Testcontainers, WireMock — newer approaches and supporting tools.</div>
+
+          <div class="tool-cards">
+            <!-- Keploy -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#be185d;color:#fff;">K</div>
+                <div>
+                  <div class="tool-name"><a href="https://keploy.io" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Keploy</a></div>
+                  <div class="tool-type">Automatic API Test Generation</div>
+                </div>
+              </div>
+              <div class="tool-desc">Records and replays HTTP/gRPC interactions. Auto-generates test cases from traffic. Open-source. Works with any language/framework. No-code setup.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Zero-code test generation from traffic</li>
+                    <li>Records realistic interactions</li>
+                    <li>Language-agnostic</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Post-hoc recording of existing flows</li>
+                    <li>Cannot specify expected flows upfront</li>
+                    <li>No causality or temporal validation</li>
+                    <li>Limited to HTTP/gRPC, not events</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">🔗</span>
+                <div><strong>Test generation helper.</strong> Keploy can generate baseline test cases. Daisy Chains elevates those to flow-level declarations with expected timings and causality.</div>
+              </div>
+            </div>
+
+            <!-- Testcontainers + WireMock -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#2563eb;color:#fff;">TC</div>
+                <div>
+                  <div class="tool-name"><a href="https://testcontainers.com" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Testcontainers</a> + <a href="https://wiremock.org" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">WireMock</a></div>
+                  <div class="tool-type">Container-Based Testing &amp; Mocking</div>
+                </div>
+              </div>
+              <div class="tool-desc">Testcontainers: Spin up Docker containers for databases, message brokers in tests. WireMock: HTTP mock server for external service dependencies.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Isolated test environments with real services</li>
+                    <li>Deterministic external dependencies</li>
+                    <li>Language-agnostic (JVM focused, multi-language SDKs)</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Infrastructure setup overhead</li>
+                    <li>Not testing flow logic, just infrastructure</li>
+                    <li>WireMock mocks external calls (passive)</li>
+                    <li>No flow validation capability</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">🔗</span>
+                <div><strong>Test infrastructure enabler.</strong> Use Testcontainers to run NATS in tests. Use WireMock to mock external dependencies. Daisy Chains validates the flows within.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 7 — MASTER COMPARISON ═══════════════ -->
+      <div class="section">
+        <div class="section-number">7</div>
+        <div class="card">
+          <h2>Master Comparison Table</h2>
+          <div class="tagline">How each tool compares on key dimensions for event-driven testing</div>
+
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th style="width:20%;">Tool</th>
+                <th>Binary Pairs</th>
+                <th>Event Sequences</th>
+                <th>Temporal Assertions</th>
+                <th>Flow Causality</th>
+                <th>Declarative Spec</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-daisy">Daisy Chains</td>
+                <td class="yes">✓</td>
+                <td class="yes">✓</td>
+                <td class="yes">✓</td>
+                <td class="yes">✓</td>
+                <td class="yes">✓</td>
+              </tr>
+              <tr>
+                <td><a href="https://pact.io" target="_blank" style="color:inherit;">Pact</a></td>
+                <td class="yes">✓ (A↔B)</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+                <td class="yes">✓</td>
+              </tr>
+              <tr>
+                <td><a href="https://temporal.io" target="_blank" style="color:inherit;">Temporal</a></td>
+                <td class="no">✗</td>
+                <td class="yes">✓</td>
+                <td class="yes">✓</td>
+                <td class="partial">~</td>
+                <td class="no">✗ (code)</td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/conductor-oss/conductor" target="_blank" style="color:inherit;">Conductor</a></td>
+                <td class="no">✗</td>
+                <td class="yes">✓</td>
+                <td class="partial">~</td>
+                <td class="partial">~</td>
+                <td class="yes">✓ (JSON)</td>
+              </tr>
+              <tr>
+                <td><a href="https://www.asyncapi.com" target="_blank" style="color:inherit;">AsyncAPI</a></td>
+                <td class="yes">✓</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+                <td class="yes">✓</td>
+              </tr>
+              <tr>
+                <td><a href="https://cloudevents.io" target="_blank" style="color:inherit;">CloudEvents</a></td>
+                <td class="yes">✓</td>
+                <td class="partial">~</td>
+                <td class="partial">~</td>
+                <td class="yes">✓</td>
+                <td class="yes">✓</td>
+              </tr>
+              <tr>
+                <td><a href="https://opentelemetry.io" target="_blank" style="color:inherit;">OpenTelemetry</a></td>
+                <td class="no">✗</td>
+                <td class="partial">~</td>
+                <td class="partial">~</td>
+                <td class="yes">✓</td>
+                <td class="no">✗</td>
+              </tr>
+              <tr>
+                <td><a href="https://www.jaegertracing.io" target="_blank" style="color:inherit;">Jaeger</a></td>
+                <td class="no">✗</td>
+                <td class="partial">~</td>
+                <td class="yes">✓</td>
+                <td class="yes">✓</td>
+                <td class="no">✗</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 8 — FORMAL METHODS: WHY NOT JUST USE TLA+? ═══════════════ -->
+      <div class="section">
+        <div class="section-number">8</div>
+        <div class="card">
+          <h2>Why Not Just Use TLA+ or Formal Methods?</h2>
+          <div class="tagline">They prove your design is correct. Daisy Chains proves your deployment honors that design.</div>
+
+          <div class="description">
+            TLA+, Alloy, session types, and model checkers are powerful tools backed by decades of research.
+            They can mathematically <em>prove</em> properties about systems. So why do we need a new spec?
+            Because each one operates at a different lifecycle phase — and none connects to real infrastructure.
+          </div>
+
+          <!-- Lifecycle Diagram (Mermaid) -->
+          <div class="mermaid-wrap" style="margin-bottom:18px;">
+            <pre class="mermaid">
+graph LR
+  subgraph DESIGN["🔬 DESIGN TIME"]
+    direction TB
+    TLA["TLA+"]
+    ALLOY["Alloy"]
+    MCRL["mCRL2"]
+  end
+  subgraph COMPILE["⚙️ COMPILE TIME"]
+    direction TB
+    ST["Session Types"]
+    SCR["Scribble"]
+  end
+  subgraph CI["🔨 BUILD TIME · CI"]
+    direction TB
+    PACT["Pact"]
+    SPEC["Specmatic"]
+    ASYNC["AsyncAPI"]
+  end
+  subgraph RUNTIME["🟢 RUNTIME"]
+    direction TB
+    DC["Daisy Chains"]
+    OBS["Observes real\nNATS, DB, events"]
+  end
+  DESIGN --> COMPILE --> CI --> RUNTIME
+  style DESIGN fill:#2a2a30,stroke:#666,color:#ccc
+  style COMPILE fill:#2a2a30,stroke:#666,color:#ccc
+  style CI fill:#2a2a30,stroke:#666,color:#ccc
+  style RUNTIME fill:#16a34a22,stroke:#4ade80,color:#ccc
+  style DC fill:#16a34a33,stroke:#4ade80,color:#fff,font-weight:bold
+            </pre>
+            <div style="text-align:center;font-size:0.72rem;color:#999;margin-top:8px;letter-spacing:1px;">
+              ← <strong>Abstract</strong> ──────────────────────────── <strong>Concrete</strong> →
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:12px;font-size:0.78rem;text-align:center;">
+              <div style="color:#999;line-height:1.4;">"Is our protocol<br>design free of<br>deadlocks?"</div>
+              <div style="color:#999;line-height:1.4;">"Does this code<br>match the<br>protocol?"</div>
+              <div style="color:#999;line-height:1.4;">"Does service A<br>still agree with<br>service B?"</div>
+              <div style="color:#999;line-height:1.4;">"Did the flow<br>actually happen<br>on real infra?"</div>
+            </div>
+          </div>
+
+          <div class="tool-cards">
+
+            <!-- TLA+ -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#4338ca;color:#fff;">T+</div>
+                <div>
+                  <div class="tool-name"><a href="https://lamport.azurewebsites.net/tla/tla.html" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">TLA+ (Lamport)</a></div>
+                  <div class="tool-type">Temporal Logic of Actions — Design-Time Model Checking</div>
+                </div>
+              </div>
+              <div class="tool-desc">Leslie Lamport's specification language. Write a mathematical model, TLC model checker exhaustively explores every reachable state. <a href="https://www.amazon.science/publications/how-amazon-web-services-uses-formal-methods" target="_blank" style="color:inherit;text-decoration:underline;">Used at Amazon</a> (S3, DynamoDB, EBS), Microsoft (Azure Cosmos DB).</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Exhaustive state-space exploration — finds subtle bugs</li>
+                    <li>Proves safety and liveness properties mathematically</li>
+                    <li>Used at Amazon to catch real distributed bugs</li>
+                    <li>Verifies ordering constraints, deadlock freedom</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Operates on abstract models, not real systems</li>
+                    <li>Cannot subscribe to NATS, read a DB, or observe events</li>
+                    <li>Steep learning curve (mathematical notation)</li>
+                    <li>State explosion with complex systems</li>
+                    <li>A correct TLA+ model doesn't mean the Go code is correct</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">⚡</span>
+                <div><strong>Different layer.</strong> TLA+ proves your <em>design</em> is correct. Daisy Chains proves your <em>deployment</em> honors that design. Use TLA+ to verify the protocol before implementing; use Daisy Chains to verify the implementation at runtime.</div>
+              </div>
+            </div>
+
+            <!-- Alloy -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#7c3aed;color:#fff;">Al</div>
+                <div>
+                  <div class="tool-name"><a href="https://alloytools.org" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Alloy (Jackson)</a></div>
+                  <div class="tool-type">Lightweight Relational Modeling — Design-Time</div>
+                </div>
+              </div>
+              <div class="tool-desc">Daniel Jackson's relational logic tool. Models system structure as relations, finds counterexamples via SAT solvers within bounded scope.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Intuitive relational syntax — easier than TLA+</li>
+                    <li>Visual counterexample generation</li>
+                    <li>Great for modeling event relationships</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Bounded — only checks up to N instances</li>
+                    <li>Design-time only, no runtime capability</li>
+                    <li>Cannot interact with real infrastructure</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">⚡</span>
+                <div><strong>Design validation.</strong> Model event schemas and relationships in Alloy to catch structural bugs early. Then use Daisy Chains to verify the actual implementation.</div>
+              </div>
+            </div>
+
+            <!-- Session Types -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#15803d;color:#fff;">ST</div>
+                <div>
+                  <div class="tool-name"><a href="https://www.scribble.org" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Session Types (Honda et al.)</a></div>
+                  <div class="tool-type">Type-Safe Protocols — Compile-Time</div>
+                </div>
+              </div>
+              <div class="tool-desc">Type discipline for communication channels: ensures deadlock-free, type-safe message passing. Multiparty session types extend to N-party protocols. Scribble language provides practical tooling.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Compile-time guarantees of protocol correctness</li>
+                    <li>Proves deadlock freedom mathematically</li>
+                    <li>Multiparty: global protocol → local projections</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>Requires language-level type system support</li>
+                    <li>Go has no session type support</li>
+                    <li>Cannot verify already-running services</li>
+                    <li>Assumes direct channels, not pub-sub (NATS/Kafka)</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">⚡</span>
+                <div><strong>Theoretically ideal, practically incompatible.</strong> Session types are the "gold standard" for protocol correctness, but Go doesn't support them. Daisy Chains achieves similar validation at runtime via observation.</div>
+              </div>
+            </div>
+
+            <!-- Runtime Verification -->
+            <div class="tool-card">
+              <div class="tool-header">
+                <div class="tool-icon" style="background:#b45309;color:#fff;">RV</div>
+                <div>
+                  <div class="tool-name"><a href="https://runtime-verification.github.io/javamop/" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;">Runtime Verification (Havelund &amp; Rosu)</a></div>
+                  <div class="tool-type">Monitor Automata — Runtime (Academic)</div>
+                </div>
+              </div>
+              <div class="tool-desc">Lightweight observers that verify LTL properties online by translating formulas to DFA. Processes event streams in real-time. The closest academic concept to what Daisy Chains does.</div>
+              <div class="pros-cons">
+                <div class="pros">
+                  <h4>Pros</h4>
+                  <ul>
+                    <li>Actually operates at runtime — observes real events</li>
+                    <li>Mathematically grounded (LTL, DFA theory)</li>
+                    <li>Lightweight overhead for production use</li>
+                  </ul>
+                </div>
+                <div class="cons">
+                  <h4>Cons</h4>
+                  <ul>
+                    <li>No practical multi-transport framework exists</li>
+                    <li>Requires writing LTL formulas (not YAML)</li>
+                    <li>No tool connects to NATS + DB + HTTP together</li>
+                    <li>Academic implementations, not production-ready</li>
+                    <li>No test generation, no CI/CD integration</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="verdict complement">
+                <span class="verdict-icon">⚡</span>
+                <div><strong>Closest academic predecessor.</strong> Runtime verification is the theoretical basis for Daisy Chains' production monitoring mode. Daisy Chains = "runtime verification made practical" — YAML instead of LTL, multi-transport, CI/CD integration.</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- When to Use What -->
+          <table class="comp-table" style="margin-top:20px;">
+            <thead>
+              <tr>
+                <th>Tool</th>
+                <th>Phase</th>
+                <th>What It Proves</th>
+                <th>Connects to Real Infra?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong><a href="https://lamport.azurewebsites.net/tla/tla.html" target="_blank" style="color:inherit;">TLA+</a></strong></td><td>Design</td><td>Protocol is deadlock-free, safe</td><td class="no">✗</td></tr>
+              <tr><td><strong><a href="https://alloytools.org" target="_blank" style="color:inherit;">Alloy</a></strong></td><td>Design</td><td>Structural relationships hold</td><td class="no">✗</td></tr>
+              <tr><td><strong><a href="https://www.scribble.org" target="_blank" style="color:inherit;">Session Types</a></strong></td><td>Compile</td><td>Code matches protocol type</td><td class="no">✗</td></tr>
+              <tr><td><strong><a href="https://pact.io" target="_blank" style="color:inherit;">Pact</a></strong></td><td>CI/CD</td><td>A ↔ B agree on interface</td><td class="partial">Mocks</td></tr>
+              <tr><td><strong><a href="https://runtime-verification.github.io/javamop/" target="_blank" style="color:inherit;">Runtime Verification</a></strong></td><td>Runtime</td><td>LTL property holds on stream</td><td class="partial">Single</td></tr>
+              <tr><td class="col-daisy"><strong>Daisy Chains</strong></td><td>CI + Runtime</td><td>Multi-hop flow matches spec</td><td class="yes">✓ NATS, DB, HTTP</td></tr>
+            </tbody>
+          </table>
+
+          <div class="key-insight" style="margin-top:18px;">
+            <strong>Bottom line:</strong> You could duct-tape TLA+ + Pact + OpenTelemetry + custom Go scripts to get something similar. But that's 4 disconnected tools with custom glue, no declarative syntax, no auto-generation, and no passive production monitoring. Daisy Chains is the unified layer.
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 9 — ADOPTION RECOMMENDATIONS ═══════════════ -->
+      <div class="section">
+        <div class="section-number">9</div>
+        <div class="card">
+          <h2>What We Should Adopt</h2>
+          <div class="tagline">Strategic tool selections that enable Daisy Chains</div>
+
+          <div class="rec-row">
+            <div class="rec-num">1</div>
+            <div class="rec-text"><strong><a href="https://cloudevents.io" target="_blank" style="color:inherit;">CloudEvents 1.0</a></strong> as the canonical event envelope across all services. The <code>traceparent</code> field enables automatic correlation for Daisy Chains.</div>
+          </div>
+
+          <div class="rec-row">
+            <div class="rec-num">2</div>
+            <div class="rec-text"><strong><a href="https://www.asyncapi.com" target="_blank" style="color:inherit;">AsyncAPI 3.1</a></strong> to define event schemas and API surfaces. Daisy Chains can parse AsyncAPI specs to auto-generate flow definitions.</div>
+          </div>
+
+          <div class="rec-row">
+            <div class="rec-num">3</div>
+            <div class="rec-text"><strong><a href="https://opentelemetry.io" target="_blank" style="color:inherit;">OpenTelemetry</a></strong> for trace instrumentation. The <a href="https://www.w3.org/TR/trace-context/" target="_blank" style="color:inherit;">W3C trace context</a> integration enables Daisy Chains to correlate events without code modifications.</div>
+          </div>
+
+          <div class="rec-row">
+            <div class="rec-num">4</div>
+            <div class="rec-text"><strong><a href="https://pact.io" target="_blank" style="color:inherit;">Pact</a></strong> for bilateral contract testing between pairs of services. Daisy Chains operates at a higher level — validating the chain, not the pairs.</div>
+          </div>
+
+          <div class="rec-row">
+            <div class="rec-num">5</div>
+            <div class="rec-text"><strong>Daisy Chains</strong> for flow-level testing and validation. Place it in the testing layer, post-deployment in staging, as a passive observer of event flows.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════ 10 — FINAL VERDICT ═══════════════ -->
+      <div class="section">
+        <div class="section-number">10</div>
+        <div class="takeaway">
+          <div class="eyebrow">Conclusion</div>
+          <h2>Daisy Chains fills a <span>gap</span></h2>
+          <div class="ta-sub">
+            The testing ecosystem has tools for pairs (Pact), specifications (AsyncAPI), observation (OpenTelemetry), and orchestration (Temporal). None declare and validate flows as first-class artifacts. Daisy Chains does. Adopt it alongside, not instead of, existing tools.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ RFC Comment ═══════════════ -->
+  <div style="max-width:900px;margin:0 auto;padding:32px 24px 0;">
+    <div class="rfc-block">
+      <div class="rfc-eyebrow">RFC — Request for Comments</div>
+      <div class="rfc-title">This is a spec proposal, not written in stone.</div>
+      <div class="rfc-desc">We want your feedback — corrections, concerns, alternatives, endorsements. Everything is open for discussion.</div>
+      <div class="rfc-links">
+        Send comments to<br>
+        <a href="mailto:lenora.pondigo+dc-rfc@gmail.com">lenora.pondigo+dc-rfc@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+  <Footer>Daisy Chains Testing Landscape · March 2026 · Lenora AI workflows</Footer>
+
+  <Fragment slot="page-scripts">
+    <script is:inline src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script is:inline>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: document.body.classList.contains('dark') ? 'dark' : 'default'
+      });
+    </script>
+  </Fragment>
+</PaperLayout>

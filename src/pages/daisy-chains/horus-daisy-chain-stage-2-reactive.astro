@@ -1,0 +1,239 @@
+---
+import PaperLayout from '../../layouts/PaperLayout.astro';
+import SidebarGroup from '../../components/paper/SidebarGroup.astro';
+import SidebarLink from '../../components/paper/SidebarLink.astro';
+import Hero from '../../components/paper/Hero.astro';
+import Footer from '../../components/paper/Footer.astro';
+import '../../styles/paper/global.css';
+import '../../styles/paper/article.css';
+---
+
+<PaperLayout title="Horus Daisy Chain Stage 2: Reactive">
+  <Fragment slot="sidebar-content">
+    <SidebarGroup title="Daisy Chains Specs">
+      <SidebarLink href="/daisy-chains/" icon="∞" label="Main Spec" meta="Daisy Chains" />
+      <SidebarLink href="/daisy-chains/daisy-chains-landscape/" icon="▬" label="Landscape" meta="System Overview" />
+      <SidebarLink href="/daisy-chains/daisy-chains-agentic-testing/" icon="◈" label="Agentic Testing" meta="Agent Framework" />
+      <SidebarLink href="/daisy-chains/daisy-chains-research-companion/" icon="§" label="Research Companion" meta="References & Reading" />
+    </SidebarGroup>
+    <SidebarGroup title="Implementation Specs">
+      <SidebarLink href="/daisy-chains/daisy-chain-matcher-engine-spec/" icon="⚙" label="Matcher Engine" meta="DCME" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-1-passive/" icon="1" label="Stage 1: Passive" meta="Horus Implementation" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-2-reactive/" icon="2" label="Stage 2: Reactive" meta="Horus Implementation (This Page)" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-3-active/" icon="3" label="Stage 3: Active" meta="Horus Implementation" />
+    </SidebarGroup>
+  </Fragment>
+
+  <Hero
+    title="Stage 2: Reactive"
+    subtitle="Watch for a trigger. Track which path it takes."
+    date="Lenora AI workflows · march 2026"
+    codeComment="// Horus Daisy Chain — Stage 2"
+  />
+
+  <div class="container">
+    <div class="card article">
+      <h2>Origin</h2>
+      <p>See <a href="/daisy-chains/horus-daisy-chain-stage-1-passive/#origin">stage 1 — passive</a> for the full hardware-to-DDD mapping. Stage 2 corresponds to <strong>point 7: test vectors applied to scan chains</strong> — a known input (the trigger) with expected output patterns (the outcomes). If the observed output doesn't match any declared outcome, there's a fault.</p>
+
+      <hr>
+
+      <h2>What is stage 2</h2>
+      <p>Stage 1 watches linear chains. Stage 2 watches for a <strong>trigger signal</strong>, then tracks which <strong>outcome path</strong> the chain follows. After the trigger, the flow can fork into multiple valid outcomes — executed, rejected, known errors. DCME classifies what happened.</p>
+      <p>This is the equivalent of hardware boundary scan with expected output vectors — you know what went in, now verify which output pattern you got.</p>
+      <p><strong>Requires stage 1.</strong> Reactive specs reuse the same adapters, matching engine, scan cell payloads, and correlation logic from stage 1.</p>
+
+      <hr>
+
+      <h2>Spec structure</h2>
+      <pre>specs:
+  &lt;name&gt;:
+    mode: reactive
+    trigger:
+      via: &lt;adapter&gt;
+      match: &#123; ... &#125;
+    timeout: &lt;duration&gt;
+    outcomes:
+      &lt;outcome_name&gt;:
+        - service: ...
+          signal: ...
+        - service: ...
+          signal: ...
+      &lt;outcome_name&gt;:
+        - ...
+      known_errors:
+        &lt;error_name&gt;:
+          - ...
+    unknown_path: alert</pre>
+
+      <ul>
+        <li><strong><code>trigger</code></strong> — the signal that starts chain tracking. DCME subscribes/watches for this. When seen, a new chain instance is created with the extracted <code>correlationId</code>.</li>
+        <li><strong><code>outcomes</code></strong> — named paths the chain can follow after the trigger. Each outcome is an ordered list of links (same signal + matcher format as stage 1). DCME matches incoming signals against all outcomes simultaneously.</li>
+        <li><strong><code>known_errors</code></strong> — expected failure paths. Still a valid outcome, but classified as an error. DCME reports which error, not just "it broke."</li>
+        <li><strong><code>unknown_path</code></strong> — what to do if no outcome matches within timeout. This is the real bug detector: something happened that nobody defined.</li>
+      </ul>
+
+      <hr>
+
+      <h2>Gate direction</h2>
+      <p>Stage 2 adds the <strong><code>gate</code></strong> signal direction to emit and expect from stage 1:</p>
+
+      <ul>
+        <li><strong><code>gate</code></strong> — the chain pauses here until a condition is met. Not just "did it arrive" but "was a decision made." Used for scripts and approval workflows. Has its own <code>gate_timeout</code> separate from chain timeout.</li>
+      </ul>
+
+      <p>Gates can resolve as approved, rejected, or timeout:</p>
+
+      <pre>      - service: bluepill
+        signal:
+          direction: gate
+          via: script
+          match:
+            script: compliance-check.sh
+          gate_timeout: 10s
+          on_approved:
+            exit_code: 0
+            continue: true
+          on_rejected:
+            exit_code: 1
+            fallback_chain: rfq_manual_review
+          on_timeout:
+            fallback_chain: rfq_escalation</pre>
+
+      <hr>
+
+      <h2>Alert types</h2>
+      <p>Inherits all alerts from stage 1 (chain break, latency threshold, sequence violation, orphan event), plus:</p>
+
+      <h3>Unknown path</h3>
+      <p>Trigger seen, but the chain followed none of the defined outcomes. Something happened that nobody declared. High-priority alert.</p>
+
+      <h3>Gate hold</h3>
+      <p>Chain paused at a decision point. Waiting for script completion or approval workflow.</p>
+
+      <h3>Known error classified</h3>
+      <p>Chain followed a <code>known_errors</code> path. Not a surprise — but tracked, counted, and surfaced in the UI.</p>
+
+      <hr>
+
+      <h2>Example: reactive chain definition</h2>
+      <p>One example showing the format. Shows trigger, multiple outcomes, known_errors, gate direction, and unknown_path alert.</p>
+
+      <pre>specs:
+  example_lifecycle:
+    mode: reactive
+    trigger:
+      via: nats
+      match:
+        subject: "requests.created.*"
+    timeout: 10s
+
+    outcomes:
+      completed:
+        - service: processor
+          signal:
+            direction: emit
+            via: nats
+            match:
+              subject: "results.completed.*"
+        - service: notifier
+          signal:
+            direction: emit
+            via: nats
+            match:
+              subject: "notifications.sent.*"
+
+      completed_with_review:
+        - service: processor
+          signal:
+            direction: emit
+            via: nats
+            match:
+              subject: "results.completed.*"
+        - service: reviewer
+          signal:
+            direction: gate
+            via: script
+            match:
+              script: review-check.sh
+              exit_code: 0
+            gate_timeout: 10s
+        - service: notifier
+          signal:
+            direction: emit
+            via: nats
+            match:
+              subject: "notifications.sent.*"
+
+      rejected:
+        - service: processor
+          signal:
+            direction: emit
+            via: nats
+            match:
+              subject: "requests.rejected.*"
+
+      known_errors:
+        unavailable:
+          - service: processor
+            signal:
+              direction: emit
+              via: nats
+              match:
+                subject: "requests.error.*"
+                body.code: SERVICE_UNAVAILABLE
+
+    unknown_path: alert</pre>
+
+      <hr>
+
+      <h2>Outcome matching algorithm</h2>
+      <p>The matching engine tracks all outcomes simultaneously per chain instance. See the <a href="/daisy-chains/daisy-chain-matcher-engine-spec/">daisy chain matcher engine spec</a> for the full implementation (<code>ChainInstance</code>, <code>ProcessSignal</code>, cursor tracking, timeout sweeps, and alert classification).</p>
+
+      <p>Summary of the algorithm:</p>
+
+      <ol>
+        <li>Extract <code>correlationId</code> from body.</li>
+        <li>Find the active chain instance for that correlation.</li>
+        <li>For each outcome, check if the signal matches the <strong>next expected link</strong>.</li>
+        <li>If it matches, advance that outcome's cursor.</li>
+        <li>First outcome to complete all its links wins — chain is classified.</li>
+        <li>If timeout expires and no outcome completed, check partial matches:
+          <ul>
+            <li>If one outcome is partially matched (some links fired), report as <strong>chain break</strong> with the outcome name and the link where it stopped.</li>
+            <li>If no outcome has any matches, report as <strong>unknown path</strong>.</li>
+          </ul>
+        </li>
+      </ol>
+
+      <hr>
+
+      <h2>Relationship to stage 1</h2>
+      <p>Stage 1 passive specs and stage 2 reactive specs can run simultaneously on the same traffic. A passive <code>order_fill</code> spec watches every fill chain link-by-link. A reactive <code>order_lifecycle</code> spec watches for order placement and classifies the outcome. They observe the same NATS subjects but answer different questions:</p>
+
+      <ul>
+        <li><strong>Stage 1 asks:</strong> "Did every link in this chain fire in order?"</li>
+        <li><strong>Stage 2 asks:</strong> "Given this trigger, which outcome did the system produce?"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="max-width:900px;margin:0 auto;padding:32px 24px 0;">
+    <div class="rfc-block">
+      <div class="rfc-eyebrow">RFC — Request for Comments</div>
+      <div class="rfc-title">This is a spec proposal, not written in stone.</div>
+      <div class="rfc-desc">We want your feedback — corrections, concerns, alternatives, endorsements. Everything is open for discussion.</div>
+      <div class="rfc-links">Send comments to<br><a href="mailto:lenora.pondigo+dc-rfc@gmail.com">lenora.pondigo+dc-rfc@gmail.com</a></div>
+    </div>
+  </div>
+
+  <div class="stage-nav">
+    <a href="/daisy-chains/horus-daisy-chain-stage-1-passive/"><span style="font-size:1.1rem;">←</span> Stage 1 — Passive</a>
+    <div class="stage-nav-label">Implementation Specs</div>
+    <a href="/daisy-chains/horus-daisy-chain-stage-3-active/">Next: Stage 3 — Active <span style="font-size:1.1rem;">→</span></a>
+  </div>
+
+  <Footer>
+    Daisy Chains · Stage 2: Reactive · March 2026 · Lenora AI workflows
+  </Footer>
+</PaperLayout>

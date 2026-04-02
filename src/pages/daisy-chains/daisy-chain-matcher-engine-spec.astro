@@ -1,0 +1,499 @@
+---
+import PaperLayout from '../../layouts/PaperLayout.astro';
+import SidebarGroup from '../../components/paper/SidebarGroup.astro';
+import SidebarLink from '../../components/paper/SidebarLink.astro';
+import Hero from '../../components/paper/Hero.astro';
+import Footer from '../../components/paper/Footer.astro';
+import '../../styles/paper/global.css';
+import '../../styles/paper/article.css';
+---
+
+<PaperLayout title="Daisy Chain Matcher Engine Spec">
+  <Fragment slot="sidebar-content">
+    <SidebarGroup title="Daisy Chains Specs">
+      <SidebarLink href="/daisy-chains/" icon="∞" label="Main Spec" meta="Daisy Chains" />
+      <SidebarLink href="/daisy-chains/daisy-chains-landscape/" icon="▬" label="Landscape" meta="System Overview" />
+      <SidebarLink href="/daisy-chains/daisy-chains-agentic-testing/" icon="◈" label="Agentic Testing" meta="Agent Framework" />
+      <SidebarLink href="/daisy-chains/daisy-chains-research-companion/" icon="§" label="Research Companion" meta="References & Reading" />
+    </SidebarGroup>
+    <SidebarGroup title="Implementation Specs">
+      <SidebarLink href="/daisy-chains/daisy-chain-matcher-engine-spec/" icon="⚙" label="Matcher Engine" meta="DCME (This Page)" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-1-passive/" icon="1" label="Stage 1: Passive" meta="Horus Implementation" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-2-reactive/" icon="2" label="Stage 2: Reactive" meta="Horus Implementation" />
+      <SidebarLink href="/daisy-chains/horus-daisy-chain-stage-3-active/" icon="3" label="Stage 3: Active" meta="Horus Implementation" />
+    </SidebarGroup>
+  </Fragment>
+
+  <Hero
+    title="Matcher Engine Spec"
+    subtitle="Declare. Match. Classify."
+    date="Lenora AI workflows · march 2026"
+    codeComment="// DCME — Daisy Chain Matcher Engine"
+  />
+
+  <div class="container">
+    <div class="card article">
+      <h2>What is this</h2>
+      <p>DCME is a standalone matching engine. It receives signals, matches them against chain definitions, and produces alerts. It knows nothing about any specific consumer, UI, or transport.</p>
+      <p>The first consumer is Horus. A CLI tool, a Kubernetes operator, or a CI pipeline could consume the same engine.</p>
+
+      <hr>
+
+      <h2>Architecture</h2>
+      <pre>┌──────────────────────────────────────────────────┐
+│                     DCME                         │
+│                                                  │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐ │
+│  │  chain      │  │  matcher   │  │  alerter   │ │
+│  │  loader     │  │  engine    │  │            │ │
+│  │  (YAML →    │  │  (signal → │  │  (result → │ │
+│  │   specs)    │  │   match)   │  │   alert)   │ │
+│  └────────────┘  └────────────┘  └────────────┘ │
+│                                                  │
+│  Ports:                                          │
+│    SignalSource   — push signals in              │
+│    AlertSink      — push alerts out              │
+│    ChainStore     — load/reload chain specs      │
+│    Injector       — send test vectors (stage 3)  │
+│                                                  │
+└──────────────────────────────────────────────────┘
+
+Example consumers:
+
+  Horus          → NATS + SSE as SignalSource
+                 → UI + webhook as AlertSink
+                 → filesystem YAML as ChainStore
+
+  CLI            → stdin as SignalSource
+                 → stdout as AlertSink
+                 → single YAML file as ChainStore
+
+  CI pipeline    → test fixtures as SignalSource
+                 → JUnit XML as AlertSink
+                 → repo YAML as ChainStore</pre>
+
+      <hr>
+
+      <h2>Core concepts</h2>
+
+      <h3>Signal</h3>
+      <p>A signal is what a scan cell reports. It is transport-agnostic.</p>
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>service</td>
+          <td>Name of the service that produced/consumed it</td>
+        </tr>
+        <tr>
+          <td>via</td>
+          <td>Transport adapter: <code>nats</code>, <code>http</code>, <code>script</code></td>
+        </tr>
+        <tr>
+          <td>direction</td>
+          <td><code>emit</code>, <code>expect</code>, or <code>gate</code></td>
+        </tr>
+        <tr>
+          <td>timestamp</td>
+          <td>When the signal was observed</td>
+        </tr>
+        <tr>
+          <td>body</td>
+          <td>Arbitrary key-value map (the message content)</td>
+        </tr>
+      </table>
+
+      <h3>Link</h3>
+      <p>A single step in a chain definition.</p>
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>service</td>
+          <td>Which service this link belongs to</td>
+        </tr>
+        <tr>
+          <td>direction</td>
+          <td><code>emit</code> (produced), <code>expect</code> (consumed), <code>gate</code> (paused)</td>
+        </tr>
+        <tr>
+          <td>via</td>
+          <td>Transport adapter</td>
+        </tr>
+        <tr>
+          <td>match</td>
+          <td>Key-value pairs to match against the signal body</td>
+        </tr>
+        <tr>
+          <td>correlation</td>
+          <td>Override for correlation extraction (optional)</td>
+        </tr>
+        <tr>
+          <td>gate_timeout</td>
+          <td>Separate timeout for gate links (optional)</td>
+        </tr>
+      </table>
+
+      <h3>Chain instance</h3>
+      <p>A runtime tracking object created when DCME begins observing a correlated chain. It holds the correlationId, a reference to the spec, the start time, all signals observed so far, and a cursor per outcome tracking how far each outcome has progressed.</p>
+
+      <hr>
+
+      <h2>Spec modes</h2>
+      <p>Three modes, each building on the previous:</p>
+
+      <h3>Passive (stage 1)</h3>
+      <p>A linear chain. DCME observes signals and verifies every link fires in order within the timeout.</p>
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td>Unique spec identifier</td>
+        </tr>
+        <tr>
+          <td>mode</td>
+          <td><code>passive</code></td>
+        </tr>
+        <tr>
+          <td>timeout</td>
+          <td>Max duration for the full chain</td>
+        </tr>
+        <tr>
+          <td>links</td>
+          <td>Ordered list of expected links</td>
+        </tr>
+      </table>
+
+      <h3>Reactive (stage 2)</h3>
+      <p>A trigger + branching outcomes. DCME watches for a trigger signal, creates a chain instance, then tracks which outcome path the chain follows.</p>
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td>Unique spec identifier</td>
+        </tr>
+        <tr>
+          <td>mode</td>
+          <td><code>reactive</code></td>
+        </tr>
+        <tr>
+          <td>trigger</td>
+          <td>Signal matcher that starts chain tracking</td>
+        </tr>
+        <tr>
+          <td>timeout</td>
+          <td>Max duration from trigger to outcome completion</td>
+        </tr>
+        <tr>
+          <td>outcomes</td>
+          <td>Named outcome paths, each an ordered list of links</td>
+        </tr>
+        <tr>
+          <td>known_errors</td>
+          <td>Named error paths, same structure as outcomes</td>
+        </tr>
+        <tr>
+          <td>unknown_path</td>
+          <td>Action when no outcome matches: <code>alert</code> or <code>ignore</code></td>
+        </tr>
+      </table>
+
+      <h3>Active (stage 3)</h3>
+      <p>Injection + expected outcome verification. DCME sends a test vector, then tracks outcomes using the same reactive matching.</p>
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td>Unique spec identifier</td>
+        </tr>
+        <tr>
+          <td>mode</td>
+          <td><code>active</code></td>
+        </tr>
+        <tr>
+          <td>inject</td>
+          <td>Test vector definition (via, method, url, body, etc.)</td>
+        </tr>
+        <tr>
+          <td>timeout</td>
+          <td>Max duration from injection to outcome completion</td>
+        </tr>
+        <tr>
+          <td>expected_outcome</td>
+          <td>Which outcome name constitutes a "pass"</td>
+        </tr>
+        <tr>
+          <td>outcomes</td>
+          <td>Same as reactive</td>
+        </tr>
+        <tr>
+          <td>known_errors</td>
+          <td>Same as reactive</td>
+        </tr>
+        <tr>
+          <td>unknown_path</td>
+          <td>Same as reactive</td>
+        </tr>
+        <tr>
+          <td>schedule</td>
+          <td>Optional cron expression for synthetic monitoring</td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <h2>Ports</h2>
+      <p>The engine is hexagonal. Four ports, consumers provide the adapters.</p>
+
+      <h3>SignalSource</h3>
+      <p>Pushes signals into the engine. The engine consumes signals as a stream — it does not poll.</p>
+      <p>Example adapters: NATS subscriber, SSE receiver, stdin reader, in-memory test fixture.</p>
+
+      <h3>AlertSink</h3>
+      <p>Receives alerts from the engine. One alert per chain resolution (completion, break, timeout, unknown path).</p>
+      <p>Example adapters: UI broadcaster, webhook, stdout, JUnit XML writer, in-memory collector.</p>
+
+      <h3>ChainStore</h3>
+      <p>Loads and reloads chain specs. The engine watches for changes and reloads without restart.</p>
+      <p>Example adapters: filesystem YAML with file watcher, single file, in-memory specs.</p>
+
+      <h3>Injector (stage 3 only)</h3>
+      <p>Sends test vectors into the target system. The engine does not know how to make HTTP requests or publish NATS messages — the consumer provides the adapter.</p>
+      <p>Example adapters: HTTP client, NATS publisher, mock recorder.</p>
+
+      <hr>
+
+      <h2>Matching behavior</h2>
+
+      <h3>Link matching</h3>
+      <p>A signal matches a link when all of the following are true:</p>
+      <ol>
+        <li><code>signal.service</code> equals <code>link.service</code></li>
+        <li><code>signal.via</code> equals <code>link.via</code></li>
+        <li><code>signal.direction</code> equals <code>link.direction</code></li>
+        <li>For every key-value pair in <code>link.match</code> (excluding <code>subject</code>): the value at that dot-notation path in <code>signal.body</code> equals the expected value</li>
+        <li>The <code>subject</code> key in <code>link.match</code> is handled by the transport adapter (e.g., NATS native subject filtering) before the signal reaches the engine</li>
+      </ol>
+
+      <h3>Correlation extraction</h3>
+      <p>Default: <code>$.body.correlationId</code> — extract <code>correlationId</code> from the signal body.</p>
+      <p>Per-link override when a transport doesn't follow the convention (e.g., <code>$.env.CORRELATION_ID</code> for scripts).</p>
+
+      <h3>Two-layer matching (NATS)</h3>
+      <p>Layer 1 (transport-native): the SignalSource adapter subscribes using the subject pattern from the link's match block. NATS server filters at the server level. DCME never sees non-matching messages.</p>
+      <p>Layer 2 (body matching): DCME evaluates remaining match keys against the signal body. Key-value equality with dot-notation traversal.</p>
+      <p>For non-NATS transports, all matching is layer 2.</p>
+
+      <hr>
+
+      <h2>Engine behavior</h2>
+
+      <h3>Core loop</h3>
+      <p>The engine runs a continuous loop that:</p>
+      <ol>
+        <li>Receives signals from the SignalSource</li>
+        <li>Watches for ChainStore reload events</li>
+        <li>Processes each signal against all loaded specs</li>
+        <li>Sweeps for timed-out chain instances</li>
+      </ol>
+
+      <h3>Signal processing</h3>
+      <p>For each incoming signal:</p>
+      <ol>
+        <li>Extract correlationId from the signal body</li>
+        <li>Check if this signal matches a trigger for any reactive or active spec — if so, create a new chain instance</li>
+        <li>For passive specs, check if this signal matches the next expected link for any active passive chain</li>
+        <li>For existing reactive/active chain instances with this correlationId, check all outcome cursors simultaneously</li>
+        <li>If any outcome completes all its links, classify the result and emit an alert</li>
+        <li>If a known_error path completes, classify as known error and emit an alert</li>
+      </ol>
+
+      <h3>Outcome matching (reactive and active)</h3>
+      <p>All outcomes are tracked simultaneously per chain instance. Each outcome has a cursor pointing to its next expected link.</p>
+      <p>When a signal arrives:</p>
+      <ol>
+        <li>For each outcome, check if the signal matches the link at the current cursor position</li>
+        <li>If it matches, advance that outcome's cursor</li>
+        <li>First outcome to complete all its links wins — the chain is classified with that outcome</li>
+        <li>If timeout expires and no outcome completed:
+          <ul>
+            <li>If one or more outcomes are partially matched (some links fired), report as chain break with the furthest-progressed outcome name and the link index where it stopped</li>
+            <li>If no outcome has any matches, report as unknown path</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h3>Timeout sweep</h3>
+      <p>A periodic sweep checks all active chain instances. If an instance has exceeded its spec's timeout, DCME evaluates the best partial match and emits the appropriate alert (chain break or unknown path). The sweep interval is configurable.</p>
+
+      <h3>Gate handling</h3>
+      <p>When a gate link is the next expected link in a chain instance, the chain enters a suspended state. The gate has its own <code>gate_timeout</code> separate from the chain timeout. A gate resolves when a signal matches one of its outcome conditions:</p>
+      <ul>
+        <li><strong>on_approved</strong>: the gate condition was met, chain continues to the next link</li>
+        <li><strong>on_rejected</strong>: the gate was explicitly rejected, chain follows the fallback_chain if defined</li>
+        <li><strong>on_timeout</strong>: the gate_timeout expired without resolution, chain follows the fallback_chain if defined</li>
+      </ul>
+
+      <hr>
+
+      <h2>Alert types</h2>
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Level</th>
+          <th>Trigger</th>
+        </tr>
+        <tr>
+          <td>chain_break</td>
+          <td>critical</td>
+          <td>Upstream emitted, downstream never received within timeout</td>
+        </tr>
+        <tr>
+          <td>gate_hold</td>
+          <td>warning</td>
+          <td>Chain paused at a gate, waiting for resolution</td>
+        </tr>
+        <tr>
+          <td>latency_threshold</td>
+          <td>warning</td>
+          <td>Link fired but exceeded configured latency threshold</td>
+        </tr>
+        <tr>
+          <td>sequence_violation</td>
+          <td>critical</td>
+          <td>Expect arrived before upstream emit</td>
+        </tr>
+        <tr>
+          <td>orphan_event</td>
+          <td>warning</td>
+          <td>Signal correlationId matches no active chain instance</td>
+        </tr>
+        <tr>
+          <td>unknown_path</td>
+          <td>critical</td>
+          <td>Trigger seen, no outcome matched within timeout</td>
+        </tr>
+        <tr>
+          <td>known_error</td>
+          <td>warning</td>
+          <td>Chain followed a declared known_errors path</td>
+        </tr>
+        <tr>
+          <td>test_pass</td>
+          <td>info</td>
+          <td>Active spec: system followed the expected_outcome</td>
+        </tr>
+        <tr>
+          <td>test_fail</td>
+          <td>critical</td>
+          <td>Active spec: timeout or unknown path</td>
+        </tr>
+        <tr>
+          <td>wrong_outcome</td>
+          <td>critical</td>
+          <td>Active spec: chain completed but followed wrong outcome</td>
+        </tr>
+        <tr>
+          <td>injection_failed</td>
+          <td>critical</td>
+          <td>Active spec: test vector could not be sent</td>
+        </tr>
+      </table>
+
+      <h3>Alert payload</h3>
+      <p>Every alert includes: alert level, alert type, spec name, correlationId, outcome name (if any), human-readable message, timestamp, and the list of all signals observed for this chain instance.</p>
+
+      <hr>
+
+      <h2>Configuration</h2>
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>default_timeout</td>
+          <td>5s</td>
+          <td>Max duration for chain completion</td>
+        </tr>
+        <tr>
+          <td>default_latency_threshold</td>
+          <td>100ms</td>
+          <td>Latency warning threshold per link</td>
+        </tr>
+        <tr>
+          <td>default_correlation</td>
+          <td><code>$.body.correlationId</code></td>
+          <td>Default path for correlationId extraction</td>
+        </tr>
+        <tr>
+          <td>sweep_interval</td>
+          <td>500ms</td>
+          <td>How often to check for timed-out chain instances</td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <h2>Active mode behavior</h2>
+      <p>For active specs, the engine:</p>
+      <ol>
+        <li>Creates a chain instance with the correlationId from the inject definition</li>
+        <li>Calls the Injector port to send the test vector</li>
+        <li>If injection fails, emits an injection_failed alert immediately</li>
+        <li>If injection succeeds, waits for outcome matching using the same reactive matching logic</li>
+        <li>When an outcome completes, compares it against <code>expected_outcome</code>:
+          <ul>
+            <li>Match → test_pass</li>
+            <li>Different outcome → wrong_outcome</li>
+            <li>Known error path → known_error</li>
+            <li>Timeout with partial match → chain_break / test_fail</li>
+            <li>Timeout with no match → unknown_path / test_fail</li>
+          </ul>
+        </li>
+      </ol>
+
+      <hr>
+
+      <h2>Spec reloading</h2>
+      <p>The engine watches the ChainStore for changes. When specs are reloaded:</p>
+      <ul>
+        <li>New specs are added to the active set</li>
+        <li>Removed specs stop creating new chain instances (existing instances for removed specs run to completion or timeout)</li>
+        <li>Modified specs apply to new chain instances only — in-flight instances use the spec version they were created with</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="max-width:900px;margin:0 auto;padding:32px 24px 0;">
+    <div class="rfc-block">
+      <div class="rfc-eyebrow">RFC — Request for Comments</div>
+      <div class="rfc-title">This is a spec proposal, not written in stone.</div>
+      <div class="rfc-desc">We want your feedback — corrections, concerns, alternatives, endorsements. Everything is open for discussion.</div>
+      <div class="rfc-links">Send comments to<br><a href="mailto:lenora.pondigo+dc-rfc@gmail.com">lenora.pondigo+dc-rfc@gmail.com</a></div>
+    </div>
+  </div>
+
+  <div class="stage-nav">
+    <div class="stage-nav-label">Implementation Specs</div>
+    <a href="/daisy-chains/horus-daisy-chain-stage-1-passive/">Next: Stage 1 — Passive <span style="font-size:1.1rem;">→</span></a>
+  </div>
+
+  <Footer>
+    Daisy Chains · Matcher Engine Spec · March 2026 · Lenora AI workflows
+  </Footer>
+</PaperLayout>
