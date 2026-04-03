@@ -22,6 +22,39 @@ details[open] summary::before {
   transform: rotate(90deg);
 }
 
+/* ── Takeaway (daisy-chains specific) ── */
+.takeaway {
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 40px 30px;
+  text-align: center;
+  margin-top: 8px;
+}
+.takeaway .eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #666;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.takeaway h2 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+.takeaway h2 span { color: #999; }
+.takeaway .ta-sub {
+  color: #777;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 /* ── Dark Mode ── */
 body.dark details summary { color: #f0f0f0; }
 body.dark details summary::before { color: #666; }
