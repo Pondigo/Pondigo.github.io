@@ -71,13 +71,31 @@
 .ref-list .ref-title { color: #555; font-style: italic; }
 
 .ref-list a {
-  color: #1a1a1a;
+  color: #fff;
   text-decoration: none;
   font-weight: 600;
-  border-bottom: 1px solid #ccc;
-  transition: border-color 0.2s;
+  font-size: 0.65rem;
+  background: #1a1a1a;
+  padding: 2px 8px;
+  border-radius: 100px;
+  letter-spacing: 0.3px;
+  transition: background 0.2s;
+  border-bottom: none;
 }
-.ref-list a:hover { border-color: #1a1a1a; }
+.ref-list a:hover { background: #444; }
+
+/* ── Description & key-insight links (pill style) ── */
+.description a, .key-insight a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.82rem;
+  background: #1a1a1a;
+  padding: 2px 10px;
+  border-radius: 100px;
+  transition: background 0.2s;
+}
+.description a:hover, .key-insight a:hover { background: #444; }
 
 .ref-tag {
   display: inline-block;
@@ -96,25 +114,36 @@
 .tag-std { background: #f0f0f0; color: #444; }
 .tag-blog { background: #f0f0f0; color: #444; }
 .tag-repo { background: #f0f0f0; color: #444; }
+.tag-tool { background: #f0f0f0; color: #444; }
+.tag-proposal { background: #f0f0f0; color: #444; border: 1px dashed #ccc; }
+
+/* ── Section special numbers ── */
+.section:nth-child(7) .section-number { background: #555; }
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .section { padding-left: 60px; }
+  .timeline::before { left: 24px; }
+  .section-number { left: 2px; width: 40px; height: 40px; font-size: 1rem; }
+}
 
 /* ── Dark Mode — Timeline ── */
-body.dark .timeline::before {
-  background: rgba(255,255,255,0.06);
-}
-body.dark .section-number {
-  background: #fff;
-  color: #111;
-}
+body.dark .timeline::before { background: #2a2a30; }
+body.dark .section-number { background: #fff; color: #111; }
+body.dark .section:nth-child(7) .section-number { background: #888; color: #111; }
 body.dark .key-insight {
   background: rgba(255,255,255,0.03);
   border-left-color: #666;
-  color: #ccc;
+  color: #bbb;
 }
-body.dark .key-insight strong { color: #fff; }
+body.dark .key-insight strong { color: #ddd; }
 body.dark .refs-title { color: #555; }
-body.dark .ref-list li { color: #888; border-bottom-color: rgba(255,255,255,0.04); }
+body.dark .ref-list li { color: #888; border-bottom-color: rgba(255,255,255,0.03); }
 body.dark .ref-list .ref-authors { color: #ccc; }
 body.dark .ref-list .ref-title { color: #999; }
-body.dark .ref-list a { color: #ddd; border-bottom-color: #555; }
-body.dark .ref-list a:hover { border-bottom-color: #ccc; }
+body.dark .ref-list a { background: #555; color: #fff; border-bottom: none; }
+body.dark .ref-list a:hover { background: #777; border-bottom: none; }
+body.dark .description a, body.dark .key-insight a { background: #555; color: #fff; }
+body.dark .description a:hover, body.dark .key-insight a:hover { background: #777; }
 body.dark .ref-tag { background: rgba(255,255,255,0.06); color: #999; }
+body.dark .card .tagline { color: #777; }

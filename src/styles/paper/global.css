@@ -403,9 +403,33 @@ body.dark .stage-nav .stage-nav-label {
   color: #666;
 }
 
+/* ── Code ── */
+code {
+  background: #f5f5f5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  color: #333;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+body.dark code { background: #1e1e24; color: #ccc; }
+body.dark .pdf-meta { color: #555; }
+
+/* ── Dark sidebar scrollbar ── */
+body.dark .sidebar::-webkit-scrollbar-track { background: transparent; }
+body.dark .sidebar::-webkit-scrollbar-thumb { background: #2a2a30; }
+body.dark .sidebar::-webkit-scrollbar-thumb:hover { background: #444; }
+body.dark .sidebar { scrollbar-color: #2a2a30 transparent; }
+
 /* ── Transitions ── */
 body, body .card, body .sidebar, body .hero, body code,
-body .footer, body .rfc-block {
+body .ref-tag, body .section-number, body .sidebar-toggle, body .theme-toggle,
+body .ref-list a, body .ref-list li, body .ref-list .ref-authors,
+body .ref-list .ref-title, body .card h2, body .card .tagline,
+body .card .description, body .refs-title, body .footer, body .timeline::before,
+body .pdf-icon, body .pdf-meta, body .sidebar h3, body .sidebar .pdf-group-title,
+body .sidebar .pdf-link, body pre, body .compare-table, body .compare-table th,
+body .compare-table td, body .compare-table thead, body .rfc-block {
   transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
