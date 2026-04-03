@@ -4,6 +4,7 @@ import SidebarGroup from '../../../../components/paper/SidebarGroup.astro';
 import SidebarLink from '../../../../components/paper/SidebarLink.astro';
 import Hero from '../../../../components/paper/Hero.astro';
 import Footer from '../../../../components/paper/Footer.astro';
+import Takeaway from '../../../../components/paper/Takeaway.astro';
 import '../../../../styles/paper/global.css';
 import '../../../../styles/paper/timeline.css';
 import '../../../../styles/paper/shared-widgets.css';
@@ -591,8 +592,7 @@ A→B→C→D→E
       <!-- ═══════════════ Takeaway ═══════════════ -->
       <div class="section">
         <div class="section-number" style="background:#555;">&#10003;</div>
-        <div class="takeaway">
-          <div class="eyebrow">The Takeaway</div>
+        <Takeaway>
           <h2>Declare the chain.<br><span>The spec is the test.<br>The test is the monitor.</span></h2>
           <div class="ta-sub">
             Stop testing internals — test interconnections.
@@ -603,7 +603,7 @@ A→B→C→D→E
           <div style="margin-top:24px;">
             <a href="/blog/specs/daisy-chains/daisy-chains-landscape/" style="display:inline-block;padding:10px 24px;background:#fff;color:#1a1a1a;border-radius:100px;font-size:0.82rem;font-weight:700;text-decoration:none;letter-spacing:0.02em;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">View Testing Landscape Comparison →</a>
           </div>
-        </div>
+        </Takeaway>
       </div>
 
       <!-- ═══════════════ RFC Comment ═══════════════ -->

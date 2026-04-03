@@ -4,6 +4,7 @@ import SidebarGroup from '../../../../components/paper/SidebarGroup.astro';
 import SidebarLink from '../../../../components/paper/SidebarLink.astro';
 import Hero from '../../../../components/paper/Hero.astro';
 import Footer from '../../../../components/paper/Footer.astro';
+import Takeaway from '../../../../components/paper/Takeaway.astro';
 import '../../../../styles/paper/global.css';
 import '../../../../styles/paper/timeline.css';
 import '../../../../styles/paper/shared-widgets.css';
@@ -1033,13 +1034,12 @@ graph LR
       <!-- ═══════════════ 10 — FINAL VERDICT ═══════════════ -->
       <div class="section">
         <div class="section-number">10</div>
-        <div class="takeaway">
-          <div class="eyebrow">Conclusion</div>
+        <Takeaway eyebrow="Conclusion">
           <h2>Daisy Chains fills a <span>gap</span></h2>
           <div class="ta-sub">
             The testing ecosystem has tools for pairs (Pact), specifications (AsyncAPI), observation (OpenTelemetry), and orchestration (Temporal). None declare and validate flows as first-class artifacts. Daisy Chains does. Adopt it alongside, not instead of, existing tools.
           </div>
-        </div>
+        </Takeaway>
       </div>
 
     </div>

@@ -1,0 +1,12 @@
+---
+interface Props {
+  eyebrow?: string;
+}
+
+const { eyebrow = 'The Takeaway' } = Astro.props;
+---
+
+<div class="takeaway">
+  <div class="takeaway-eyebrow">{eyebrow}</div>
+  <slot />
+</div>
